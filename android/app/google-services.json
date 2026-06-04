@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "449327116621",
+    "project_id": "crypto-assistant-321a0",
+    "storage_bucket": "crypto-assistant-321a0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:449327116621:android:0ab7045c3efe28e7044704",
+        "android_client_info": {
+          "package_name": "com.example.crypto_assistant"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgmbNUVxjXcHyqUxub6sdq2eocFbuCu-E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
