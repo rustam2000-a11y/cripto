@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 import '../models/coin_model.dart';
 
-@injectable
+@Injectable(as: CoinApI)
 class CoinApi extends CoinApI {
   @override
   Future<List<CoinModel>> fetch() async {
