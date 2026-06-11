@@ -1,6 +1,8 @@
 import 'package:crypto_assistant/widget/custom_text.dart';
 import 'package:flutter/material.dart';
 
+import '../../presentation/app_colors.dart';
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
 
@@ -8,6 +10,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title:CustomNewText(text: "Cripto"),
+      backgroundColor: AppColors.haiti,
     );
   }
 
