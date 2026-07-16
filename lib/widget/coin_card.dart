@@ -1,5 +1,8 @@
 import 'package:crypto_assistant/presentation/app_colors.dart';
-import 'package:crypto_assistant/widget/custom_text.dart';
+import 'package:crypto_assistant/widget/coin_avatar.dart';
+import 'package:crypto_assistant/widget/coin_price_change.dart';
+import 'package:crypto_assistant/widget/coin_stat_column.dart';
+import 'package:crypto_assistant/widget/title_text_column.dart';
 import 'package:flutter/material.dart';
 
 class CoinCard extends StatelessWidget {
@@ -26,12 +29,6 @@ class CoinCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isPositive = (priceChangePercentage24h ?? 0) >= 0;
-    final changeColor = isPositive ? Colors.green : Colors.red;
-    final changeBgColor = isPositive ? Colors.green.withOpacity(0.15) : Colors.red.withOpacity(0.15);
-    final changeText =
-        '${isPositive ? '+' : ''}${(priceChangePercentage24h ?? 0).toStringAsFixed(2)}%';
-
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -46,66 +43,17 @@ class CoinCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Container(
-                    height: 42,
-                    width: 42,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    child: Image.network(
-                      imageUrl,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => const Icon(Icons.currency_bitcoin),
-                    ),
-                  ),
+                  CoinAvatar(imageUrl: imageUrl),
                   const SizedBox(width: 12),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 4,
-                    children: [
-                      CustomNewText(
-                        text: name,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.titanWhite,
-                      ),
-                      CustomNewText(
-                        text: '${symbol.toUpperCase()} - #$marketCapRank',
-                        fontSize: 11,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.victoria,
-                      ),
-                    ],
+                  TitleTextColumn(
+                    title: name,
+                    text: '${symbol.toUpperCase()} - #$marketCapRank',
                   ),
                 ],
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                spacing: 4,
-                children: [
-                  CustomNewText(
-                    text: '\$${currentPrice.toStringAsFixed(2)}',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.titanWhite,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: changeColor),
-                      color: changeBgColor,
-                    ),
-                    child: CustomNewText(
-                      text: changeText,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w500,
-                      color: changeColor,
-                    ),
-                  ),
-                ],
+              CoinPriceChange(
+                currentPrice: currentPrice,
+                priceChangePercentage24h: priceChangePercentage24h,
               ),
             ],
           ),
@@ -113,33 +61,15 @@ class CoinCard extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 4,
-                  children: [
-                    CustomNewText(text: 'Объём 24 часа', fontSize: 11, color: AppColors.victoria),
-                    CustomNewText(
-                      text: _formatVolume(totalVolume),
-                      fontSize: 13,
-                      color: AppColors.blueBell,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ],
+                child: CoinStatColumn(
+                  title: 'Объём 24 часа',
+                  text: _formatVolume(totalVolume),
                 ),
               ),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 4,
-                  children: [
-                    CustomNewText(text: 'Макс 24 часа', fontSize: 11, color: AppColors.victoria),
-                    CustomNewText(
-                      text: high24h != null ? '\$${high24h!.toStringAsFixed(2)}' : '—',
-                      fontSize: 13,
-                      color: AppColors.blueBell,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ],
+                child: CoinStatColumn(
+                  title: 'Макс 24 часа',
+                  text: high24h != null ? '\$${high24h!.toStringAsFixed(2)}' : '—',
                 ),
               ),
             ],
