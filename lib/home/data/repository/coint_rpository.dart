@@ -1,19 +1,22 @@
 import 'package:injectable/injectable.dart';
+import 'package:rxdart/rxdart.dart';
 import '../api/coint_api.dart';
 import '../models/coin_model.dart';
 
-@LazySingleton(as: CointRepositoryI)
-class CointRepository extends CointRepositoryI {
-  CointRepository({required CoinApI api}) : _api = api;
+@LazySingleton(as: CoinRepositoryI)
+class CoinRepository extends CoinRepositoryI {
+  CoinRepository({required CoinApI api}) : _api = api;
 
   final CoinApI _api;
 
   @override
-  Future<List<CoinModel>> fetch() {
-    return _api.fetch();
+  Stream<List<CoinModel>> watchCoins() {
+    return Stream.periodic(const Duration(seconds: 60))
+        .startWith(null)
+        .switchMap((_) => Stream.fromFuture(_api.fetch()));
   }
 }
 
-abstract class CointRepositoryI {
-  Future<List<CoinModel>> fetch();
+abstract class CoinRepositoryI {
+  Stream<List<CoinModel>> watchCoins();
 }

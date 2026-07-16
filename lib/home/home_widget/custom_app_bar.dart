@@ -62,11 +62,15 @@ final List<Map<String, dynamic>> products = [
   },
 ];
 
- int c (List<Map<String,dynamic>>products){
-  int r = 0;
-  for (final product in products ){
-   final price = product['price'] as int;
-   r += price;
+ String c (List<Map<String,dynamic>>products){
+   List<String> countries= [];
+   String name = '';
+  for (final product in products){
+    final country = (product['manufacturer'] as Map<String, dynamic>)['country'] as String;
+    if(country=='USA'){
+      name = product['name']as String;
+    }
+    countries.add(country);
   }
-  return r;
+return name;
 }

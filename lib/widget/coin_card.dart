@@ -3,12 +3,37 @@ import 'package:crypto_assistant/widget/custom_text.dart';
 import 'package:flutter/material.dart';
 
 class CoinCard extends StatelessWidget {
-  const CoinCard({super.key});
+  const CoinCard({
+    super.key,
+    required this.name,
+    required this.symbol,
+    required this.imageUrl,
+    required this.currentPrice,
+    required this.priceChangePercentage24h,
+    required this.totalVolume,
+    required this.high24h,
+    required this.marketCapRank,
+  });
+
+  final String name;
+  final String symbol;
+  final String imageUrl;
+  final double currentPrice;
+  final double? priceChangePercentage24h;
+  final int totalVolume;
+  final double? high24h;
+  final int marketCapRank;
 
   @override
   Widget build(BuildContext context) {
+    final isPositive = (priceChangePercentage24h ?? 0) >= 0;
+    final changeColor = isPositive ? Colors.green : Colors.red;
+    final changeBgColor = isPositive ? Colors.green.withOpacity(0.15) : Colors.red.withOpacity(0.15);
+    final changeText =
+        '${isPositive ? '+' : ''}${(priceChangePercentage24h ?? 0).toStringAsFixed(2)}%';
+
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.containerColor,
         borderRadius: BorderRadius.circular(18),
@@ -24,24 +49,30 @@ class CoinCard extends StatelessWidget {
                   Container(
                     height: 42,
                     width: 42,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
                       color: Colors.white,
                     ),
+                    clipBehavior: Clip.antiAlias,
+                    child: Image.network(
+                      imageUrl,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => const Icon(Icons.currency_bitcoin),
+                    ),
                   ),
-                  SizedBox(width: 12),
+                  const SizedBox(width: 12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: 4,
                     children: [
                       CustomNewText(
-                        text: 'Bitcoin',
+                        text: name,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: AppColors.titanWhite,
                       ),
                       CustomNewText(
-                        text: 'ETH - #2',
+                        text: '${symbol.toUpperCase()} - #$marketCapRank',
                         fontSize: 11,
                         fontWeight: FontWeight.w500,
                         color: AppColors.victoria,
@@ -50,51 +81,78 @@ class CoinCard extends StatelessWidget {
                   ),
                 ],
               ),
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 spacing: 4,
                 children: [
                   CustomNewText(
-                    text: '188.50',
+                    text: '\$${currentPrice.toStringAsFixed(2)}',
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color: AppColors.titanWhite,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8,vertical: 3),
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.green), // цвет не актуальный
-                      color: Colors.teal,
+                      border: Border.all(color: changeColor),
+                      color: changeBgColor,
                     ),
                     child: CustomNewText(
-                      text: '2.4%',
+                      text: changeText,
                       fontSize: 11,
                       fontWeight: FontWeight.w500,
-                      color: AppColors.victoria,
+                      color: changeColor,
                     ),
                   ),
                 ],
               ),
             ],
-          ),// конец верхней Row
-          SizedBox(height: 16,),
-          Row(children: [
-            Row(children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 4,
-                children: [
-                  CustomNewText(text: 'Капитализация',fontSize: 11, color: AppColors.victoria,),
-                  CustomNewText(text: '89B',fontSize: 13, color: AppColors.blueBell,fontWeight: FontWeight.w500,),
-                ],
+          ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 4,
+                  children: [
+                    CustomNewText(text: 'Объём 24 часа', fontSize: 11, color: AppColors.victoria),
+                    CustomNewText(
+                      text: _formatVolume(totalVolume),
+                      fontSize: 13,
+                      color: AppColors.blueBell,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ],
+                ),
               ),
-            ],)
-          ],),
-
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 4,
+                  children: [
+                    CustomNewText(text: 'Макс 24 часа', fontSize: 11, color: AppColors.victoria),
+                    CustomNewText(
+                      text: high24h != null ? '\$${high24h!.toStringAsFixed(2)}' : '—',
+                      fontSize: 13,
+                      color: AppColors.blueBell,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
+  }
+
+  String _formatVolume(int volume) {
+    if (volume >= 1000000000) return '${(volume / 1000000000).toStringAsFixed(1)}B';
+    if (volume >= 1000000) return '${(volume / 1000000).toStringAsFixed(1)}M';
+    if (volume >= 1000) return '${(volume / 1000).toStringAsFixed(1)}K';
+    return volume.toString();
   }
 }

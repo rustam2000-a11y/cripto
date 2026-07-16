@@ -1,26 +1,52 @@
+import 'package:crypto_assistant/home/bloc/home_bloc.dart';
+import 'package:crypto_assistant/home/bloc/home_state.dart';
 import 'package:crypto_assistant/presentation/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../injection.dart';
 import '../widget/coin_card.dart';
 import 'home_widget/custom_app_bar.dart';
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
 
+class HomeScreen extends StatelessWidget {
+   HomeScreen({super.key});
+  final _bloc = getIt<HomeBloc>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.haiti,
       appBar: CustomAppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            CoinCard(),
-
-
-          ],
-        ),
+      body: BlocBuilder<HomeBloc, HomeState>(
+        bloc: _bloc,
+        builder: (context, state) {
+          if (state.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (state.items.isEmpty) {
+            return const Center(child: Text('Нет данных'));
+          }
+          return ListView.separated(
+            padding: const EdgeInsets.all(8),
+            itemCount: state.items.length,
+            separatorBuilder: (_, __) => const SizedBox(height: 8),
+            itemBuilder: (context, index) {
+              final coin = state.items[index];
+              return CoinCard(
+                name: coin.name,
+                symbol: coin.symbol,
+                imageUrl: coin.image,
+                currentPrice: coin.currentPrice,
+                priceChangePercentage24h: coin.priceChangePercentage24h,
+                totalVolume: coin.totalVolume,
+                high24h: coin.high24h,
+                marketCapRank: coin.marketCapRank,
+              );
+            },
+          );
+        },
       ),
     );
   }
 }
+
+
