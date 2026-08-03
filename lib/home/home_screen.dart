@@ -1,4 +1,5 @@
 import 'package:crypto_assistant/home/bloc/home_bloc.dart';
+import 'package:crypto_assistant/home/bloc/home_event.dart';
 import 'package:crypto_assistant/home/bloc/home_state.dart';
 import 'package:crypto_assistant/presentation/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../injection.dart';
 import '../widget/coin_card.dart';
+import 'home_widget/coin_search_field.dart';
 import 'home_widget/custom_app_bar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -25,23 +27,34 @@ class HomeScreen extends StatelessWidget {
           if (state.items.isEmpty) {
             return const Center(child: Text('Нет данных'));
           }
-          return ListView.separated(
-            padding: const EdgeInsets.all(8),
-            itemCount: state.items.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 8),
-            itemBuilder: (context, index) {
-              final coin = state.items[index];
-              return CoinCard(
-                name: coin.name,
-                symbol: coin.symbol,
-                imageUrl: coin.image,
-                currentPrice: coin.currentPrice,
-                priceChangePercentage24h: coin.priceChangePercentage24h,
-                totalVolume: coin.totalVolume,
-                high24h: coin.high24h,
-                marketCapRank: coin.marketCapRank,
-              );
-            },
+          return Column(
+            children: [
+              CoinSearchField(
+                onChanged: (value) {
+                  _bloc.add(SearchQueryChangedEvent(query: value));
+                },
+              ),
+              Expanded(
+                child: ListView.separated(
+                  padding: const EdgeInsets.all(8),
+                  itemCount: state.items.length,
+                  separatorBuilder: (_, __) => const SizedBox(height: 8),
+                  itemBuilder: (context, index) {
+                    final coin = state.items[index];
+                    return CoinCard(
+                      name: coin.name,
+                      symbol: coin.symbol,
+                      imageUrl: coin.image,
+                      currentPrice: coin.currentPrice,
+                      priceChangePercentage24h: coin.priceChangePercentage24h,
+                      totalVolume: coin.totalVolume,
+                      high24h: coin.high24h,
+                      marketCapRank: coin.marketCapRank,
+                    );
+                  },
+                ),
+              ),
+            ],
           );
         },
       ),

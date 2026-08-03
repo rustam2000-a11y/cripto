@@ -59,18 +59,15 @@ class CoinCard extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Row(
+            spacing: 20,
             children: [
-              Expanded(
-                child: CoinStatColumn(
-                  title: 'Объём 24 часа',
-                  text: _formatVolume(totalVolume),
-                ),
+              CoinStatColumn(
+                title: 'Объём 24 часа',
+                text: _formatVolume(totalVolume),
               ),
-              Expanded(
-                child: CoinStatColumn(
-                  title: 'Макс 24 часа',
-                  text: high24h != null ? '\$${high24h!.toStringAsFixed(2)}' : '—',
-                ),
+              CoinStatColumn(
+                title: 'Макс 24 часа',
+                text: high24h != null ? '\$${high24h!.toStringAsFixed(2)}' : '—',
               ),
             ],
           ),

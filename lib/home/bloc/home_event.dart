@@ -14,4 +14,8 @@ class LoadItemsEvent extends HomeEvent {
   final List <CoinModel> items;
 }
 
+class SearchQueryChangedEvent extends HomeEvent {
+  const SearchQueryChangedEvent({required this.query});
 
+  final String query;
+}

@@ -20,6 +20,9 @@ class HomeBloc extends EffectBloc<HomeEvent, HomeState, HomeEffect> {
     on<LoadItemsEvent>((event, emit) {
       emit(state.copyWith(items: event.items, isLoading: false));
     });
+    on<SearchQueryChangedEvent>((event, emit) {
+      _searchCoins(event.query);
+    });
     _init();
   }
 
@@ -31,6 +34,19 @@ StreamSubscription <List<CoinModel>>? _coinsSubscription;
     _coinsSubscription = _repository.watchCoins().listen((coins) {
       add(LoadItemsEvent(items: coins));
     });
+  }
+
+  void _searchCoins(String query) {
+    if (query.isEmpty)  state.items;
+    final lowerQuery = query.toLowerCase();
+     final itemList = state.items
+        .where(
+          (coin) =>
+              coin.name.toLowerCase().contains(lowerQuery) ||
+              coin.symbol.toLowerCase().contains(lowerQuery),
+        )
+        .toList();
+     add(LoadItemsEvent(items: itemList));
   }
 
   @override
