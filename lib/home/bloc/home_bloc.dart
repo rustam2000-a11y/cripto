@@ -18,16 +18,25 @@ class HomeBloc extends EffectBloc<HomeEvent, HomeState, HomeEffect> {
       emit(state.copyWith(isLoading: event.isLoading));
     });
     on<LoadItemsEvent>((event, emit) {
-      emit(state.copyWith(items: event.items, isLoading: false));
+      emit(
+        state.copyWith(
+          items: event.items,
+          filteredItems: event.items,
+          isLoading: false,
+        ),
+      );
     });
     on<SearchQueryChangedEvent>((event, emit) {
       _searchCoins(event.query);
+    });
+    on<ChangedFilteredItemsEvent>((event, emit) {
+      emit(state.copyWith(filteredItems: event.filteredItems));
     });
     _init();
   }
 
   final CoinRepositoryI _repository;
-StreamSubscription <List<CoinModel>>? _coinsSubscription;
+  StreamSubscription<List<CoinModel>>? _coinsSubscription;
 
   void _init() {
     add(LoadingEvent(isLoading: true));
@@ -37,16 +46,16 @@ StreamSubscription <List<CoinModel>>? _coinsSubscription;
   }
 
   void _searchCoins(String query) {
-    if (query.isEmpty)  state.items;
+    if (query.isEmpty) state.items;
     final lowerQuery = query.toLowerCase();
-     final itemList = state.items
+    final filter = state.items
         .where(
           (coin) =>
               coin.name.toLowerCase().contains(lowerQuery) ||
               coin.symbol.toLowerCase().contains(lowerQuery),
         )
         .toList();
-     add(LoadItemsEvent(items: itemList));
+    add(ChangedFilteredItemsEvent(filteredItems: filter));
   }
 
   @override

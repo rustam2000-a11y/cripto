@@ -37,10 +37,10 @@ class HomeScreen extends StatelessWidget {
               Expanded(
                 child: ListView.separated(
                   padding: const EdgeInsets.all(8),
-                  itemCount: state.items.length,
+                  itemCount: state.filteredItems.length,
                   separatorBuilder: (_, __) => const SizedBox(height: 8),
                   itemBuilder: (context, index) {
-                    final coin = state.items[index];
+                    final coin = state.filteredItems[index];
                     return CoinCard(
                       name: coin.name,
                       symbol: coin.symbol,

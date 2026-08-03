@@ -19,3 +19,8 @@ class SearchQueryChangedEvent extends HomeEvent {
 
   final String query;
 }
+
+class ChangedFilteredItemsEvent extends HomeEvent {
+  const ChangedFilteredItemsEvent({required this.filteredItems});
+  final List<CoinModel> filteredItems;
+}

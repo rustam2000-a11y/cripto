@@ -9,7 +9,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title:CustomNewText(text: "Cripto"),
+      title:CustomNewText(text: "Crypto Assistant",color: AppColors.whiteColor,fontSize: 16,fontWeight: FontWeight.w600,),
       backgroundColor: AppColors.haiti,
     );
   }
