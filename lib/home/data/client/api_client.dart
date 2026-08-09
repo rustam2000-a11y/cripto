@@ -15,4 +15,13 @@ class ApiClient {
     final decode = jsonDecode(response.body);
     return decode;
   }
+
+  Future<Map<String, dynamic>> getMap(String path, {Map<String, String>? queryParams}) async {
+    final url = Uri.parse(
+      '$_baseUrl$path',
+    ).replace(queryParameters: queryParams);
+    final response = await http.get(url);
+    final decode = jsonDecode(response.body);
+    return decode as Map<String, dynamic>;
+  }
 }

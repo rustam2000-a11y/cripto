@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import '../api/coint_api.dart';
 import '../models/coin_model.dart';
+import '../models/price_point.dart';
 
 @LazySingleton(as: CoinRepositoryI)
 class CoinRepository extends CoinRepositoryI {
@@ -22,9 +23,19 @@ class CoinRepository extends CoinRepositoryI {
         .startWith(null)
         .switchMap((_) => Stream.fromFuture(_api.fetchById(id)));
   }
+
+  @override
+  Stream<List<PricePoint>> watchMarketChart(String id, {int days = 7}) {
+    return Stream.periodic(const Duration(seconds: 60))
+        .startWith(null)
+        .switchMap(
+          (_) => Stream.fromFuture(_api.fetchMarketChart(id, days: days)),
+        );
+  }
 }
 
 abstract class CoinRepositoryI {
   Stream<List<CoinModel>> watchCoins();
   Stream<CoinModel> watchCoin(String id);
+  Stream<List<PricePoint>> watchMarketChart(String id, {int days = 7});
 }

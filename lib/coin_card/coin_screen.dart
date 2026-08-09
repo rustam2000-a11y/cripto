@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../injection.dart';
 import '../presentation/app_colors.dart';
 import '../widget/coin_avatar.dart';
+import '../widget/coin_price_change.dart';
+import '../widget/coin_price_chart.dart';
 import '../widget/coin_stat_card.dart';
 import '../widget/custom_text.dart';
 import '../widget/format_utils.dart';
@@ -75,10 +77,15 @@ class _CoinScreenState extends State<CoinScreen> {
                         fontWeight: FontWeight.w500,
                         color: AppColors.whiteColor,
                       ),
-                      const SizedBox(
-                        width: double.infinity,
-                        height: 200,
-                        child: ColoredBox(color: Colors.white),
+                      const SizedBox(height: 8),
+                      CoinPriceChange(
+                        currentPrice: coin.currentPrice,
+                        priceChangePercentage24h: coin.priceChangePercentage24h,
+                      ),
+                      const SizedBox(height: 12),
+                      CoinPriceChart(
+                        points: state.chartPoints,
+                        isLoading: state.isChartLoading,
                       ),
                       const SizedBox(height: 10),
                       Row(
