@@ -9,6 +9,7 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:crypto_assistant/coin_card/bloc/coin_bloc.dart' as _i287;
 import 'package:crypto_assistant/home/bloc/home_bloc.dart' as _i838;
 import 'package:crypto_assistant/home/data/api/coint_api.dart' as _i997;
 import 'package:crypto_assistant/home/data/client/api_client.dart' as _i292;
@@ -28,6 +29,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i997.CoinApI>(() => _i997.CoinApi(gh<_i292.ApiClient>()));
     gh.lazySingleton<_i404.CoinRepositoryI>(
       () => _i404.CoinRepository(api: gh<_i997.CoinApI>()),
+    );
+    gh.factory<_i287.CoinBloc>(
+      () => _i287.CoinBloc(repository: gh<_i404.CoinRepositoryI>()),
     );
     gh.factory<_i838.HomeBloc>(
       () => _i838.HomeBloc(repository: gh<_i404.CoinRepositoryI>()),

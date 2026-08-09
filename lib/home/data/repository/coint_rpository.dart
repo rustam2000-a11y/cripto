@@ -15,8 +15,16 @@ class CoinRepository extends CoinRepositoryI {
         .startWith(null)
         .switchMap((_) => Stream.fromFuture(_api.fetch()));
   }
+
+  @override
+  Stream<CoinModel> watchCoin(String id) {
+    return Stream.periodic(const Duration(seconds: 60))
+        .startWith(null)
+        .switchMap((_) => Stream.fromFuture(_api.fetchById(id)));
+  }
 }
 
 abstract class CoinRepositoryI {
   Stream<List<CoinModel>> watchCoins();
+  Stream<CoinModel> watchCoin(String id);
 }

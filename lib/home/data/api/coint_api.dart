@@ -24,8 +24,21 @@ class CoinApi extends CoinApI {
     final coins = data.map((d)=> CoinModel.fromJson(d)).toList();
     return coins;
   }
+
+  @override
+  Future<CoinModel> fetchById(String id) async {
+    final data = await _client.get(
+      '/coins/markets',
+      queryParams: {
+        'vs_currency': 'usd',
+        'ids': id,
+      },
+    );
+    return CoinModel.fromJson(data.first);
+  }
 }
 
 abstract class CoinApI {
   Future<List<CoinModel>> fetch();
+  Future<CoinModel> fetchById(String id);
 }

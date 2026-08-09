@@ -1,0 +1,43 @@
+import 'package:crypto_assistant/presentation/app_colors.dart';
+import 'package:crypto_assistant/widget/custom_text.dart';
+import 'package:flutter/material.dart';
+
+class CoinStatCard extends StatelessWidget {
+  const CoinStatCard({
+    super.key,
+    required this.title,
+    required this.value,
+  });
+
+  final String title;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: AppColors.cardBackground,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        spacing: 8,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomNewText(
+            text: title,
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: AppColors.textSecondary,
+          ),
+          CustomNewText(
+            text: value,
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
+            color: AppColors.whiteColor,
+          ),
+        ],
+      ),
+    );
+  }
+}
