@@ -2,6 +2,7 @@ import 'package:crypto_assistant/presentation/app_colors.dart';
 import 'package:crypto_assistant/widget/coin_avatar.dart';
 import 'package:crypto_assistant/widget/coin_price_change.dart';
 import 'package:crypto_assistant/widget/coin_stat_column.dart';
+import 'package:crypto_assistant/widget/format_utils.dart';
 import 'package:crypto_assistant/widget/title_text_column.dart';
 import 'package:flutter/material.dart';
 
@@ -63,7 +64,7 @@ class CoinCard extends StatelessWidget {
             children: [
               CoinStatColumn(
                 title: 'Объём 24 часа',
-                text: _formatVolume(totalVolume),
+                text: formatVolume(totalVolume),
               ),
               CoinStatColumn(
                 title: 'Макс 24 часа',
@@ -74,12 +75,5 @@ class CoinCard extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String _formatVolume(int volume) {
-    if (volume >= 1000000000) return '${(volume / 1000000000).toStringAsFixed(1)}B';
-    if (volume >= 1000000) return '${(volume / 1000000).toStringAsFixed(1)}M';
-    if (volume >= 1000) return '${(volume / 1000).toStringAsFixed(1)}K';
-    return volume.toString();
   }
 }

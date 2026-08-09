@@ -39,14 +39,11 @@ class CoinSearchField extends StatelessWidget {
               minWidth: 52,
               minHeight: 52,
             ),
-            suffixIcon: IconButton(
-              onPressed: () {
-              },
-              icon: const Icon(
-                Icons.tune_rounded,
-                color: Color(0xFFC4C4D8),
-                size: 22,
-              ),),
+            suffixIcon: const Icon(
+              Icons.tune_rounded,
+              color: Color(0xFFC4C4D8),
+              size: 22,
+            ),
             filled: true,
             fillColor: const Color(0xFF17143B),
             contentPadding: const EdgeInsets.symmetric(

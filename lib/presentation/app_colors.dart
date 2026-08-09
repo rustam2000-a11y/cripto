@@ -13,5 +13,11 @@ class AppColors {
   static const Color victoria = Color(0xFF4D4890);
   static const Color portGore = Color(0xFF1E1A4A);
   static const Color blueBell = Color(0xFF9B97CC);
+  static const background = Color(0xFF14132B);
+  static const cardBackground = Color(0xFF1E1D3D);
+  static const accent = Color(0xFF3C3489);
+  static const textSecondary = Color(0xFF8987C4);
+  static const positive = Color(0xFF5DCAA5);
+  static const negative = Color(0xFFD85A30);
 
 }

@@ -8,11 +8,15 @@ class TitleTextColumn extends StatelessWidget {
     required this.title,
     required this.text,
     this.crossAxisAlignment = CrossAxisAlignment.start,
+    this.fonSizeFirst,
+    this.fonSizeLast,
   });
 
   final String title;
   final String text;
   final CrossAxisAlignment crossAxisAlignment;
+  final double? fonSizeFirst;
+  final double? fonSizeLast;
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +26,13 @@ class TitleTextColumn extends StatelessWidget {
       children: [
         CustomNewText(
           text: title,
-          fontSize: 14,
+          fontSize: fonSizeFirst ?? 14,
           fontWeight: FontWeight.w500,
           color: AppColors.titanWhite,
         ),
         CustomNewText(
           text: text,
-          fontSize: 11,
+          fontSize: fonSizeLast ?? 11,
           fontWeight: FontWeight.w500,
           color: AppColors.victoria,
         ),

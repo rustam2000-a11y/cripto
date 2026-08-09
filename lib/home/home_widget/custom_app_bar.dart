@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import '../../presentation/app_colors.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
-
+  const CustomAppBar({super.key, required this.text,  this.colors = AppColors.haiti });
+final String text;
+final Color colors;
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title:CustomNewText(text: "Crypto Assistant",color: AppColors.whiteColor,fontSize: 16,fontWeight: FontWeight.w600,),
-      backgroundColor: AppColors.haiti,
+      title:CustomNewText(text: text,color: AppColors.whiteColor,fontSize: 16,fontWeight: FontWeight.w600,),
+      backgroundColor: colors,
     );
   }
 

@@ -5,6 +5,7 @@ import 'package:crypto_assistant/presentation/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../coin_card/coin_screen.dart';
 import '../injection.dart';
 import '../widget/coin_card.dart';
 import 'home_widget/coin_search_field.dart';
@@ -17,7 +18,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.haiti,
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(text: "Crypto Assistant"),
       body: BlocBuilder<HomeBloc, HomeState>(
         bloc: _bloc,
         builder: (context, state) {
@@ -41,15 +42,25 @@ class HomeScreen extends StatelessWidget {
                   separatorBuilder: (_, __) => const SizedBox(height: 8),
                   itemBuilder: (context, index) {
                     final coin = state.filteredItems[index];
-                    return CoinCard(
-                      name: coin.name,
-                      symbol: coin.symbol,
-                      imageUrl: coin.image,
-                      currentPrice: coin.currentPrice,
-                      priceChangePercentage24h: coin.priceChangePercentage24h,
-                      totalVolume: coin.totalVolume,
-                      high24h: coin.high24h,
-                      marketCapRank: coin.marketCapRank,
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => CoinScreen(coinId: coin.id),
+                          ),
+                        );
+                      },
+                      child: CoinCard(
+                        name: coin.name,
+                        symbol: coin.symbol,
+                        imageUrl: coin.image,
+                        currentPrice: coin.currentPrice,
+                        priceChangePercentage24h: coin.priceChangePercentage24h,
+                        totalVolume: coin.totalVolume,
+                        high24h: coin.high24h,
+                        marketCapRank: coin.marketCapRank,
+                      ),
                     );
                   },
                 ),
