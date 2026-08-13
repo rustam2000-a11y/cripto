@@ -11,14 +11,33 @@ import '../widget/coin_card.dart';
 import 'home_widget/coin_search_field.dart';
 import 'home_widget/custom_app_bar.dart';
 
-class HomeScreen extends StatelessWidget {
-   HomeScreen({super.key});
-  final _bloc = getIt<HomeBloc>();
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late final HomeBloc _bloc;
+
+  @override
+  void initState() {
+    _bloc = getIt<HomeBloc>();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _bloc.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.haiti,
-      appBar: CustomAppBar(text: "Crypto Assistant",leadingIcon: false,),
+      appBar: CustomAppBar(text: "Crypto Assistant", leadingIcon: false),
       body: BlocBuilder<HomeBloc, HomeState>(
         bloc: _bloc,
         builder: (context, state) {
@@ -72,5 +91,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-
