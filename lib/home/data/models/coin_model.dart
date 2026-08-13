@@ -7,6 +7,7 @@ class CoinModel extends Equatable {
     required this.symbol,
     required this.image,
     required this.currentPrice,
+    required this.marketCap,
     required this.marketCapRank,
     required this.totalVolume, //Объём торгов за 24 часа
     required this.high24h,
@@ -30,6 +31,7 @@ class CoinModel extends Equatable {
       symbol: json['symbol'] as String? ?? '',
       image: json['image'] as String? ?? '',
       currentPrice: (json['current_price'] as num?)?.toDouble() ?? 0.0,
+      marketCap: (json['market_cap'] as num?)?.toDouble() ?? 0.0,
       marketCapRank: (json['market_cap_rank'] as num?)?.toInt() ?? 0,
       totalVolume: (json['total_volume'] as num?)?.toInt() ?? 0,
       high24h: (json['high_24h'] as num?)?.toDouble(),
@@ -54,6 +56,7 @@ class CoinModel extends Equatable {
   final String symbol;
   final String image;
   final double currentPrice;
+  final double marketCap;
   final int marketCapRank;
   final int totalVolume;
   final double? high24h;
@@ -75,6 +78,7 @@ class CoinModel extends Equatable {
     String? symbol,
     String? image,
     double? currentPrice,
+    double? marketCap,
     int? marketCapRank,
     int? totalVolume,
     double? high24h,
@@ -96,6 +100,7 @@ class CoinModel extends Equatable {
       symbol: symbol ?? this.symbol,
       image: image ?? this.image,
       currentPrice: currentPrice ?? this.currentPrice,
+      marketCap: marketCap ?? this.marketCap,
       marketCapRank: marketCapRank ?? this.marketCapRank,
       totalVolume: totalVolume ?? this.totalVolume,
       high24h: high24h ?? this.high24h,
@@ -122,6 +127,7 @@ class CoinModel extends Equatable {
     symbol,
     image,
     currentPrice,
+    marketCap,
     marketCapRank,
     totalVolume,
     high24h,

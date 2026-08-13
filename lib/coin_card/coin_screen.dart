@@ -8,7 +8,8 @@ import '../widget/coin_avatar.dart';
 import '../widget/coin_price_change.dart';
 import '../widget/coin_price_chart.dart';
 import '../widget/coin_stat_card.dart';
-import '../widget/custom_text.dart';
+import '../widget/custom_button.dart';
+
 import '../widget/format_utils.dart';
 import '../widget/title_text_column.dart';
 import 'bloc/coin_bloc.dart';
@@ -54,60 +55,134 @@ class _CoinScreenState extends State<CoinScreen> {
           body: coin == null
               ? const Center(child: CircularProgressIndicator())
               : Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          CoinAvatar(imageUrl: coin.image),
-                          const SizedBox(width: 12),
-                          TitleTextColumn(
-                            title: coin.name,
-                            text: '${coin.symbol.toUpperCase()} - #${coin.marketCapRank}',
-                            fonSizeFirst: 18,
-                            fonSizeLast: 14,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      CustomNewText(
-                        text: '\$${coin.currentPrice.toStringAsFixed(2)}',
-                        fontSize: 30,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.whiteColor,
-                      ),
-                      const SizedBox(height: 8),
-                      CoinPriceChange(
-                        currentPrice: coin.currentPrice,
-                        priceChangePercentage24h: coin.priceChangePercentage24h,
-                      ),
-                      const SizedBox(height: 12),
-                      CoinPriceChart(
-                        points: state.chartPoints,
-                        isLoading: state.isChartLoading,
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        spacing: 12,
-                        children: [
-                          Expanded(
-                            child: CoinStatCard(
-                              title: 'Объём 24 часа',
-                              value: formatVolume(coin.totalVolume),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      CoinAvatar(imageUrl: coin.image),
+                                      const SizedBox(width: 12),
+                                      TitleTextColumn(
+                                        title: coin.name,
+                                        text:
+                                            '${coin.symbol.toUpperCase()} - #${coin.marketCapRank}',
+                                        fonSizeFirst: 18,
+                                        fonSizeLast: 14,
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                  CoinPriceChange(
+                                    currentPrice: coin.currentPrice,
+                                    priceChangePercentage24h:
+                                    coin.priceChangePercentage24h,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            child: CoinStatCard(
-                              title: 'Макс 24 часа',
-                              value: coin.high24h != null
-                                  ? '\$${coin.high24h!.toStringAsFixed(2)}'
-                                  : '—',
+
+                            CoinPriceChart(
+                              points: state.chartPoints,
+                              isLoading: state.isChartLoading,
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+
+                        const SizedBox(height: 20),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: CoinStatCard(
+                                title:
+                                    'Позиция текущей цены в дневном диапазоне (0–100%):',
+                                value: formatPriceRangePosition(
+                                  coin.currentPrice,
+                                  coin.low24h,
+                                  coin.high24h,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          spacing: 12,
+                          children: [
+                            Expanded(
+                              child: CoinStatCard(
+                                title: 'Объём 24 часа',
+                                value: formatVolume(coin.totalVolume),
+                              ),
+                            ),
+                            Expanded(
+                              child: CoinStatCard(
+                                title: 'Капитализация',
+                                value:
+                                    '\$${formatVolume(coin.marketCap.toInt())}',
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          spacing: 12,
+                          children: [
+                            Expanded(
+                              child: CoinStatCard(
+                                title: 'Макс 24 часа',
+                                value: coin.high24h != null
+                                    ? '\$${coin.high24h!.toStringAsFixed(2)}'
+                                    : '—',
+                              ),
+                            ),
+                            Expanded(
+                              child: CoinStatCard(
+                                title: 'Мин 24 часа',
+                                value: coin.low24h != null
+                                    ? '\$${coin.low24h!.toStringAsFixed(2)}'
+                                    : '—',
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          spacing: 12,
+                          children: [
+                            Expanded(
+                              child: CoinStatCard(
+                                title: 'Исторический максимум',
+                                value: coin.ath != null
+                                    ? '\$${coin.ath!.toStringAsFixed(2)}'
+                                    : '—',
+                              ),
+                            ),
+                            Expanded(
+                              child: CoinStatCard(
+                                title: 'Исторический минимум',
+                                value: coin.atl != null
+                                    ? '\$${coin.atl!.toStringAsFixed(2)}'
+                                    : '—',
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 15),
+                        const SizedBox(height: 20),
+                        SafeArea(top: false, child: CustomButton(onTap: () {})),
+                      ],
+                    ),
                   ),
                 ),
         );

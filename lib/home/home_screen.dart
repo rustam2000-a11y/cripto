@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.haiti,
-      appBar: CustomAppBar(text: "Crypto Assistant"),
+      appBar: CustomAppBar(text: "Crypto Assistant",leadingIcon: false,),
       body: BlocBuilder<HomeBloc, HomeState>(
         bloc: _bloc,
         builder: (context, state) {

@@ -21,7 +21,7 @@ class CoinPriceChange extends StatelessWidget {
     final changeText =
         '${isPositive ? '+' : ''}${(priceChangePercentage24h ?? 0).toStringAsFixed(2)}%';
 
-    return Column(
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       spacing: 4,
       children: [
@@ -31,6 +31,7 @@ class CoinPriceChange extends StatelessWidget {
           fontWeight: FontWeight.w500,
           color: AppColors.titanWhite,
         ),
+        SizedBox(width: 10),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           decoration: BoxDecoration(
