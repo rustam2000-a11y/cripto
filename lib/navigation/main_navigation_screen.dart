@@ -35,7 +35,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             bottom: 0,
             child: SafeArea(
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 12),
+                padding: const EdgeInsets.only(bottom: 4),
                 child: Center(
                   child: CustomBottomNavBar(
                     currentPage: _currentPage,

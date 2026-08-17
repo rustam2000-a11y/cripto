@@ -1,30 +1,14 @@
-import 'package:flutter/material.dart';
+import '../presentation/app_images.dart';
 
 enum AppPage {
-  home(
-    number: 0,
-    label: 'Главная',
-    icon: Icons.home_outlined,
-    activeIcon: Icons.home,
-  ),
-  assistant(
-    number: 1,
-    label: 'Сигналы',
-    icon: Icons.smart_toy_outlined,
-    activeIcon: Icons.smart_toy,
-  );
+  home(number: 0, label: 'Главная', icon: AppImages.home),
+  assistant(number: 1, label: 'Сигналы', icon: AppImages.dataAnalytics);
 
-  const AppPage({
-    required this.number,
-    required this.label,
-    required this.icon,
-    required this.activeIcon,
-  });
+  const AppPage({required this.number, required this.label, required this.icon});
 
   final int number;
   final String label;
-  final IconData icon;
-  final IconData activeIcon;
+  final String icon;
 
   static AppPage fromNumber(int number) {
     return AppPage.values.firstWhere((page) => page.number == number);
