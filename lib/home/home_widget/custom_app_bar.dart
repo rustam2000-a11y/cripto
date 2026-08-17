@@ -25,6 +25,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         fontWeight: FontWeight.w600,
       ),
       backgroundColor: colors,
+      surfaceTintColor: Colors.transparent,
+      scrolledUnderElevation: 0,
       leading: leadingIcon? IconButton(
         onPressed: Navigator.of(context).pop,
         icon: Icon(Icons.arrow_back_ios_new),
