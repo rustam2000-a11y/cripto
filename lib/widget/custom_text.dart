@@ -1,3 +1,4 @@
+import 'package:crypto_assistant/presentation/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomNewText extends StatelessWidget {
@@ -34,7 +35,7 @@ class CustomNewText extends StatelessWidget {
       style: TextStyle(
         fontFamily: 'Inter',
         fontSize: fontSize,
-        color: color,
+        color: color?? AppColors.whiteColor,
         fontWeight: fontWeight,
         decoration: underline ? TextDecoration.underline : TextDecoration.none,
         height: height,

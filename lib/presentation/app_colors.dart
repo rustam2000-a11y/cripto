@@ -17,7 +17,17 @@ class AppColors {
   static const cardBackground = Color(0xFF1E1D3D);
   static const accent = Color(0xFF3C3489);
   static const textSecondary = Color(0xFF8987C4);
+  static const navBarBackground = Color(0xCC242348);
   static const positive = Color(0xFF5DCAA5);
   static const negative = Color(0xFFD85A30);
+  static const borderRed = Color(0xFFE85D6B);       // Резкое движение — коралловый красный
+  static const borderOrange = Color(0xFFE8A94A);     // Аномалии — тёплый янтарный
+  static const borderTeal = Color(0xFF4EC5D4);       // Волатильность — бирюзовый
+  static const borderGreen = Color(0xFF3ECF8E);      // Оборачиваемость — мятно-зелёный
+  static const amber = Color(0xFFF59E0B);
+  static const magenta = Color(0xFFE879F9);
+  static const skyBlue = Color(0xFF60A5FA);
+
+
 
 }
