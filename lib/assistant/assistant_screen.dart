@@ -5,9 +5,27 @@ import '../home/home_widget/custom_app_bar.dart';
 import '../presentation/app_colors.dart';
 import '../presentation/app_images.dart';
 import 'assistant_widgets/assistant_card_information.dart';
+import 'assistant_widgets/filter_type.dart';
+import 'filter_detailing_screen.dart';
 
 class AssistantScreen extends StatelessWidget {
   const AssistantScreen({super.key});
+
+  void _openDetails(
+    BuildContext context,
+    FilterType type,
+    String description,
+  ) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => FilterDetailingScreen(
+          type: type,
+          description: description,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +48,11 @@ class AssistantScreen extends StatelessWidget {
                       text: 'Аномальное движение цены за за последние 24 часа',
                       description: 'Рост/подение  цены выше чем на 10%',
                       borderColor: AppColors.borderRed,
+                      onTap: () => _openDetails(
+                        context,
+                        FilterType.abnormalMovement,
+                        'Рост/подение  цены выше чем на 10%',
+                      ),
                     ),
                   ),
                   Expanded(
@@ -38,6 +61,11 @@ class AssistantScreen extends StatelessWidget {
                       text: 'Движение цены за за последние 24 часа',
                       description: 'Рост/подение  цены выше чем на 5%',
                       borderColor: AppColors.borderOrange,
+                      onTap: () => _openDetails(
+                        context,
+                        FilterType.priceMovement,
+                        'Рост/подение  цены выше чем на 5%',
+                      ),
                     ),
                   ),
                 ],
@@ -51,6 +79,11 @@ class AssistantScreen extends StatelessWidget {
                       text: 'Большая волатильность',
                       description: 'Размах колебаний цены за 24 часа',
                       borderColor: AppColors.borderGreen,
+                      onTap: () => _openDetails(
+                        context,
+                        FilterType.highVolatility,
+                        'Размах колебаний цены за 24 часа',
+                      ),
                     ),
                   ),
                   Expanded(
@@ -60,6 +93,11 @@ class AssistantScreen extends StatelessWidget {
                       description:
                           'Приближается к своему историческому максимуму/минимуму',
                       borderColor: AppColors.borderTeal,
+                      onTap: () => _openDetails(
+                        context,
+                        FilterType.historicalExtremum,
+                        'Приближается к своему историческому максимуму/минимуму',
+                      ),
                     ),
                   ),
                 ],
@@ -71,8 +109,13 @@ class AssistantScreen extends StatelessWidget {
                     child: AssistantCardInformation(
                       icon: AppImages.inflation,
                       text: 'Оборачиваемость',
-                      description: 'аномально высокую активность торгов относительно размера монеты',
+                      description: 'Аномально высокую активность торгов относительно размера монеты',
                       borderColor: AppColors.amber,
+                      onTap: () => _openDetails(
+                        context,
+                        FilterType.turnover,
+                        'Аномально высокую активность торгов относительно размера монеты',
+                      ),
                     ),
                   ),
                   Expanded(
@@ -82,6 +125,11 @@ class AssistantScreen extends StatelessWidget {
                       description:
                       'Рост/отток капитализации выше 5% за 24 часа',
                       borderColor: AppColors.magenta,
+                      onTap: () => _openDetails(
+                        context,
+                        FilterType.capitalInflow,
+                        'Рост/отток капитализации выше 5% за 24 часа',
+                      ),
                     ),
                   ),
                 ],
@@ -95,6 +143,11 @@ class AssistantScreen extends StatelessWidget {
                       text: 'У дневного пика/дна',
                       description: 'аномально высокую активность торгов относительно размера монеты',
                       borderColor: AppColors.borderGreen,
+                      onTap: () => _openDetails(
+                        context,
+                        FilterType.dailyExtremum,
+                        'аномально высокую активность торгов относительно размера монеты',
+                      ),
                     ),
                   ),
                   Expanded(
@@ -104,6 +157,11 @@ class AssistantScreen extends StatelessWidget {
                       description:
                       'Цена сейчас находится у верхней или нижней границы дневного диапазона',
                       borderColor: AppColors.whiteColor,
+                      onTap: () => _openDetails(
+                        context,
+                        FilterType.confirmedAnomaly,
+                        'Цена сейчас находится у верхней или нижней границы дневного диапазона',
+                      ),
                     ),
                   ),
                 ],
