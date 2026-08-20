@@ -41,16 +41,21 @@ class CoinCard extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  CoinAvatar(imageUrl: imageUrl),
-                  const SizedBox(width: 12),
-                  TitleTextColumn(
-                    title: name,
-                    text: '${symbol.toUpperCase()} - #$marketCapRank',
-                  ),
-                ],
+              Expanded(
+                child: Row(
+                  children: [
+                    CoinAvatar(imageUrl: imageUrl),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: TitleTextColumn(
+                        title: name,
+                        text: '${symbol.toUpperCase()} - #$marketCapRank',
+                      ),
+                    ),
+                  ],
+                ),
               ),
               CoinPriceChange(
                 currentPrice: currentPrice,

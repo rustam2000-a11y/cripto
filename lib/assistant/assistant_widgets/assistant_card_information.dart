@@ -66,6 +66,9 @@ class AssistantCardInformation extends StatelessWidget {
                   text: description,
                   color: AppColors.blueBell,
                   textAlign: TextAlign.start,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+
                 ),
               ],
             ),

@@ -73,12 +73,14 @@ class _CoinScreenState extends State<CoinScreen> {
                                     children: [
                                       CoinAvatar(imageUrl: coin.image),
                                       const SizedBox(width: 12),
-                                      TitleTextColumn(
-                                        title: coin.name,
-                                        text:
-                                            '${coin.symbol.toUpperCase()} - #${coin.marketCapRank}',
-                                        fonSizeFirst: 18,
-                                        fonSizeLast: 14,
+                                      Expanded(
+                                        child: TitleTextColumn(
+                                          title: coin.name,
+                                          text:
+                                              '${coin.symbol.toUpperCase()} - #${coin.marketCapRank}',
+                                          fonSizeFirst: 18,
+                                          fonSizeLast: 14,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -91,6 +93,7 @@ class _CoinScreenState extends State<CoinScreen> {
                                 ],
                               ),
                             ),
+
 
                             CoinPriceChart(
                               points: state.chartPoints,

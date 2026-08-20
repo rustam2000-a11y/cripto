@@ -51,7 +51,14 @@ class _FilterDetailingScreenState extends State<FilterDetailingScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            CustomNewText(text: widget.description),
+            Container(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(color: AppColors.blueBell),
+
+                ),
+                child: CustomNewText(text: widget.description)),
             const SizedBox(height: 8),
             Expanded(
               child: BlocBuilder<FilterDetailingBloc, FilterDetailingState>(

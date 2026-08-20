@@ -29,6 +29,8 @@ class TitleTextColumn extends StatelessWidget {
           fontSize: fonSizeFirst ?? 14,
           fontWeight: FontWeight.w500,
           color: AppColors.titanWhite,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
         CustomNewText(
           text: text,
