@@ -11,4 +11,6 @@ class AppImages {
   static const inflation = 'assets/images/inflation.png';
   static const analyze = 'assets/images/analyze.png';
   static const high = 'assets/images/high.png';
+  static const google ='assets/images/google.png';
+  static const apple = 'assets/images/apple.png';
 }

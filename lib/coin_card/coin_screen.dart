@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../injection.dart';
 import '../presentation/app_colors.dart';
+import '../registration/login_screen.dart';
 import '../widget/coin_avatar.dart';
 import '../widget/coin_price_change.dart';
 import '../widget/coin_price_chart.dart';
@@ -66,7 +67,10 @@ class _CoinScreenState extends State<CoinScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 0,
+                                vertical: 10,
+                              ),
                               child: Column(
                                 children: [
                                   Row(
@@ -88,12 +92,11 @@ class _CoinScreenState extends State<CoinScreen> {
                                   CoinPriceChange(
                                     currentPrice: coin.currentPrice,
                                     priceChangePercentage24h:
-                                    coin.priceChangePercentage24h,
+                                        coin.priceChangePercentage24h,
                                   ),
                                 ],
                               ),
                             ),
-
 
                             CoinPriceChart(
                               points: state.chartPoints,
@@ -183,7 +186,21 @@ class _CoinScreenState extends State<CoinScreen> {
                         ),
                         SizedBox(height: 15),
                         const SizedBox(height: 20),
-                        SafeArea(top: false, child: CustomButton(onTap: () {})),
+                        SafeArea(
+                          top: false,
+                          child: CustomButton(
+                            name: 'Добавить в избранное',
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginScreen(),
+                                ),
+                              );
+                            },
+
+                          ),
+                        ),
                       ],
                     ),
                   ),

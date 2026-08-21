@@ -27,7 +27,7 @@ class AppColors {
   static const amber = Color(0xFFF59E0B);
   static const magenta = Color(0xFFE879F9);
   static const skyBlue = Color(0xFF60A5FA);
-
+  static const activeBorder = Color(0xFF7B68EE);
 
 
 }
