@@ -17,6 +17,13 @@ import 'package:crypto_assistant/home/data/api/coint_api.dart' as _i997;
 import 'package:crypto_assistant/home/data/client/api_client.dart' as _i292;
 import 'package:crypto_assistant/home/data/repository/coint_rpository.dart'
     as _i404;
+import 'package:crypto_assistant/registration/bloc/login_bloc.dart' as _i471;
+import 'package:crypto_assistant/registration/bloc/registration_bloc.dart'
+    as _i688;
+import 'package:crypto_assistant/registration/data/api/registration_api.dart'
+    as _i957;
+import 'package:crypto_assistant/registration/data/repository/registration_repository.dart'
+    as _i678;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -31,6 +38,18 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i997.CoinApI>(() => _i997.CoinApi(gh<_i292.ApiClient>()));
     gh.lazySingleton<_i404.CoinRepositoryI>(
       () => _i404.CoinRepository(api: gh<_i997.CoinApI>()),
+    );
+    gh.factory<_i957.RegistrationApiI>(() => _i957.RegistrationApi());
+    gh.lazySingleton<_i678.RegistrationRepositoryI>(
+      () => _i678.RegistrationRepository(api: gh<_i957.RegistrationApiI>()),
+    );
+    gh.factory<_i471.LoginBloc>(
+      () => _i471.LoginBloc(repository: gh<_i678.RegistrationRepositoryI>()),
+    );
+    gh.factory<_i688.RegistrationBloc>(
+      () => _i688.RegistrationBloc(
+        repository: gh<_i678.RegistrationRepositoryI>(),
+      ),
     );
     gh.factory<_i2.FilterDetailingBloc>(
       () => _i2.FilterDetailingBloc(repository: gh<_i404.CoinRepositoryI>()),

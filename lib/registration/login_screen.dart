@@ -1,3 +1,4 @@
+import 'package:bloc_after_effect/bloc_after_effect.dart';
 import 'package:crypto_assistant/home/home_widget/custom_app_bar.dart';
 import 'package:crypto_assistant/presentation/app_images.dart';
 import 'package:crypto_assistant/registration/registration_screen.dart';
@@ -5,97 +6,166 @@ import 'package:crypto_assistant/registration/registration_widget/login_title.da
 import 'package:crypto_assistant/widget/custom_button.dart';
 import 'package:crypto_assistant/widget/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../injection.dart';
 import '../presentation/app_colors.dart';
 import '../widget/custom_divider.dart';
 import '../widget/custom_text_field.dart';
+import 'bloc/login_bloc.dart';
+import 'bloc/login_effect.dart';
+import 'bloc/login_event.dart';
+import 'bloc/login_state.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  late final LoginBloc _bloc;
+
+  @override
+  void initState() {
+    _bloc = getIt<LoginBloc>();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _bloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(text: ''),
-      backgroundColor: AppColors.haiti,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: SafeArea(
-          child: Column(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  LoginTitle(
-                    firstText: 'С возвращением',
-                    secondaryText:
-                        'Войдите, что бы продолжить следить за рынокм ',
-                  ),
-                  SizedBox(height: 30),
-                  CustomTextField(
-                    label: 'Email',
-                    onChanged: (String value) {},
-                    hintText: 'Email',
-                    leftIcon: Icons.email_outlined,
-                  ),
-                  SizedBox(height: 15),
-                  CustomPasswordTextField(
-                    label: 'Password',
-                    onChanged: (String value) {},
-                  ),
-                  SizedBox(height: 30),
-                  CustomButton(onTap: () {}, name: 'Войти'),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      CustomNewText(
-                        text: 'Забыл пароль?',
-                        color: AppColors.activeBorder,
-                        fontSize: 16,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 30),
-                  CustomDivider(),
-                  SizedBox(height: 30),
-                  Row(
-                    spacing: 12,
-                    children: [
-                      Expanded(
-                        child: CustomButton(
-                          onTap: () {},
-                          name: 'Google',
-                          icon: AppImages.google,
-                        ),
-                      ),
-                      Expanded(
-                        child: CustomButton(
-                          onTap: () {},
-                          name: 'Apple',
-                          icon: AppImages.apple,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 5,
-                children: [
-                  CustomNewText(text: 'Нет аккаунта?', fontSize: 18),
-                  InkWell(
-                    onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>RegistrationScreen()));},
-                    child: CustomNewText(
-                      text: 'Зарегестрироваться',
-                      fontSize: 18,
-                      color: AppColors.activeBorder,
+    return BlocEffectListener<LoginBloc, LoginEffect>(
+      bloc: _bloc,
+      listener: (context, effect) {
+        if (effect is LoginSucceeded) {
+          Navigator.pop(context);
+        } else if (effect is LoginFailed) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(effect.message)),
+          );
+        }
+      },
+      child: Scaffold(
+        appBar: CustomAppBar(text: ''),
+        backgroundColor: AppColors.haiti,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: SafeArea(
+            child: Column(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    LoginTitle(
+                      firstText: 'С возвращением',
+                      secondaryText:
+                          'Войдите, что бы продолжить следить за рынокм ',
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    SizedBox(height: 30),
+                    CustomTextField(
+                      label: 'Email',
+                      onChanged: (value) =>
+                          _bloc.add(LoginEmailChanged(value)),
+                      hintText: 'Email',
+                      leftIcon: Icons.email_outlined,
+                    ),
+                    SizedBox(height: 15),
+                    CustomPasswordTextField(
+                      label: 'Password',
+                      onChanged: (value) =>
+                          _bloc.add(LoginPasswordChanged(value)),
+                    ),
+                    SizedBox(height: 30),
+                    BlocBuilder<LoginBloc, LoginState>(
+                      bloc: _bloc,
+                      builder: (context, state) {
+                        if (state.isLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        return CustomButton(
+                          onTap: () =>
+                              _bloc.add(const SignInWithEmailPressed()),
+                          name: 'Войти',
+                        );
+                      },
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        CustomNewText(
+                          text: 'Забыл пароль?',
+                          color: AppColors.activeBorder,
+                          fontSize: 16,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                    CustomDivider(),
+                    SizedBox(height: 30),
+                    Row(
+                      spacing: 12,
+                      children: [
+                        Expanded(
+                          child: CustomButton(
+                            onTap: () {
+                              if (!_bloc.state.isLoading) {
+                                _bloc.add(const SignInWithGooglePressed());
+                              }
+                            },
+                            name: 'Google',
+                            icon: AppImages.google,
+                          ),
+                        ),
+                        Expanded(
+                          child: CustomButton(
+                            onTap: () {
+                              if (!_bloc.state.isLoading) {
+                                _bloc.add(const SignInWithApplePressed());
+                              }
+                            },
+                            name: 'Apple',
+                            icon: AppImages.apple,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: 5,
+                  children: [
+                    CustomNewText(text: 'Нет аккаунта?', fontSize: 18),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RegistrationScreen(),
+                          ),
+                        );
+                      },
+                      child: CustomNewText(
+                        text: 'Зарегестрироваться',
+                        fontSize: 18,
+                        color: AppColors.activeBorder,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
