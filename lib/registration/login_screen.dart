@@ -6,7 +6,6 @@ import 'package:crypto_assistant/registration/registration_widget/login_title.da
 import 'package:crypto_assistant/widget/custom_button.dart';
 import 'package:crypto_assistant/widget/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../injection.dart';
 import '../presentation/app_colors.dart';
@@ -41,24 +40,26 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocEffectListener<LoginBloc, LoginEffect>(
+    return BlocEffectBuilder<LoginBloc, LoginState, LoginEffect>(
       bloc: _bloc,
-      listener: (context, effect) {
-        if (effect is LoginSucceeded) {
-          Navigator.pop(context);
-        } else if (effect is LoginFailed) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(effect.message)),
-          );
+      effectListener: (context, effect) {
+        switch (effect) {
+          case LoginSucceeded():
+            Navigator.pop(context);
+          case LoginFailed(:final message):
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(message)),
+            );
         }
       },
-      child: Scaffold(
+      builder: (context, state) => Scaffold(
         appBar: CustomAppBar(text: ''),
         backgroundColor: AppColors.haiti,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: SafeArea(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,25 +80,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 15),
                     CustomPasswordTextField(
                       label: 'Password',
+                      error: state.error,
                       onChanged: (value) =>
                           _bloc.add(LoginPasswordChanged(value)),
                     ),
                     SizedBox(height: 30),
-                    BlocBuilder<LoginBloc, LoginState>(
-                      bloc: _bloc,
-                      builder: (context, state) {
-                        if (state.isLoading) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        return CustomButton(
-                          onTap: () =>
-                              _bloc.add(const SignInWithEmailPressed()),
-                          name: 'Войти',
-                        );
-                      },
-                    ),
+                    if (state.isLoading)
+                      const Center(child: CircularProgressIndicator())
+                    else
+                      CustomButton(
+                        onTap: () =>
+                            _bloc.add(const SignInWithEmailPressed()),
+                        name: 'Войти',
+                      ),
                     SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,

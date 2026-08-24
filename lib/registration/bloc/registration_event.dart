@@ -37,3 +37,9 @@ class RegistrationLoadingEvent extends RegistrationEvent {
 
   final bool isLoading;
 }
+
+class RegistrationErrorEvent extends RegistrationEvent {
+  const RegistrationErrorEvent({required this.error});
+
+  final bool error;
+}

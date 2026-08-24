@@ -26,3 +26,4 @@ class LoginFailed extends LoginEffect {
   @override
   List<Object?> get props => [message];
 }
+

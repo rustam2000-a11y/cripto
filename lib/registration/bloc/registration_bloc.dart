@@ -26,6 +26,9 @@ class RegistrationBloc
     on<RegistrationLoadingEvent>((event, emit) {
       emit(state.copyWith(isLoading: event.isLoading));
     });
+    on<RegistrationErrorEvent>((event, emit) {
+      emit(state.copyWith(error: event.error));
+    });
     on<RegisterWithEmailPressed>((event, emit) {
       _registerWithEmail();
     });
@@ -37,9 +40,16 @@ class RegistrationBloc
     });
   }
 
+  static const _minPasswordLength = 6;
+
   final RegistrationRepositoryI _repository;
 
   Future<void> _registerWithEmail() async {
+    if (state.password.length < _minPasswordLength) {
+      add(const RegistrationErrorEvent(error: true));
+      return;
+    }
+    add(const RegistrationErrorEvent(error: false));
     add(const RegistrationLoadingEvent(isLoading: true));
     try {
       final user = await _repository.registerWithEmail(

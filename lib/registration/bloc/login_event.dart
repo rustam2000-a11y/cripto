@@ -31,3 +31,9 @@ class LoginLoadingEvent extends LoginEvent {
 
   final bool isLoading;
 }
+
+class LoginErrorEvent extends LoginEvent {
+  const LoginErrorEvent({required this.error});
+
+  final bool error;
+}

@@ -1,7 +1,6 @@
 import 'package:bloc_after_effect/bloc_after_effect.dart';
 import 'package:crypto_assistant/registration/registration_widget/login_title.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../home/home_widget/custom_app_bar.dart';
 import '../injection.dart';
@@ -40,18 +39,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocEffectListener<RegistrationBloc, RegistrationEffect>(
+    return BlocEffectBuilder<RegistrationBloc, RegistrationState, RegistrationEffect>(
       bloc: _bloc,
-      listener: (context, effect) {
-        if (effect is RegistrationSucceeded) {
-          Navigator.pop(context);
-        } else if (effect is RegistrationFailed) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(effect.message)),
-          );
+      effectListener: (context, effect) {
+        switch (effect) {
+          case RegistrationSucceeded():
+            Navigator.pop(context);
+          case RegistrationFailed(:final message):
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(message)),
+            );
         }
       },
-      child: Scaffold(
+      builder: (context, state) => Scaffold(
         appBar: CustomAppBar(text: ''),
         backgroundColor: AppColors.haiti,
         body: Padding(
@@ -85,25 +85,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     SizedBox(height: 15),
                     CustomPasswordTextField(
                       label: 'Password',
+                      error: state.error,
                       onChanged: (value) =>
                           _bloc.add(RegisterPasswordChanged(value)),
                     ),
                     SizedBox(height: 30),
-                    BlocBuilder<RegistrationBloc, RegistrationState>(
-                      bloc: _bloc,
-                      builder: (context, state) {
-                        if (state.isLoading) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        return CustomButton(
-                          onTap: () =>
-                              _bloc.add(const RegisterWithEmailPressed()),
-                          name: 'Войти',
-                        );
-                      },
-                    ),
+                    if (state.isLoading)
+                      const Center(child: CircularProgressIndicator())
+                    else
+                      CustomButton(
+                        onTap: () =>
+                            _bloc.add(const RegisterWithEmailPressed()),
+                        name: 'Войти',
+                      ),
                     SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,

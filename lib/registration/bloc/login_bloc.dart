@@ -21,6 +21,9 @@ class LoginBloc extends EffectBloc<LoginEvent, LoginState, LoginEffect> {
     on<LoginLoadingEvent>((event, emit) {
       emit(state.copyWith(isLoading: event.isLoading));
     });
+    on<LoginErrorEvent>((event, emit) {
+      emit(state.copyWith(error: event.error));
+    });
     on<SignInWithEmailPressed>((event, emit) {
       _signInWithEmail();
     });
@@ -32,9 +35,16 @@ class LoginBloc extends EffectBloc<LoginEvent, LoginState, LoginEffect> {
     });
   }
 
+  static const _minPasswordLength = 6;
+
   final RegistrationRepositoryI _repository;
 
   Future<void> _signInWithEmail() async {
+    if (state.password.length < _minPasswordLength) {
+      add(const LoginErrorEvent(error: true));
+      return;
+    }
+    add(const LoginErrorEvent(error: false));
     add(const LoginLoadingEvent(isLoading: true));
     try {
       final user = await _repository.signInWithEmail(
