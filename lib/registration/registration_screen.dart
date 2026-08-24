@@ -1,107 +1,172 @@
+import 'package:bloc_after_effect/bloc_after_effect.dart';
 import 'package:crypto_assistant/registration/registration_widget/login_title.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../home/home_widget/custom_app_bar.dart';
+import '../injection.dart';
 import '../presentation/app_colors.dart';
 import '../presentation/app_images.dart';
 import '../widget/custom_button.dart';
 import '../widget/custom_divider.dart';
 import '../widget/custom_text.dart';
 import '../widget/custom_text_field.dart';
+import 'bloc/registration_bloc.dart';
+import 'bloc/registration_effect.dart';
+import 'bloc/registration_event.dart';
+import 'bloc/registration_state.dart';
 
-class RegistrationScreen extends StatelessWidget {
+class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
 
   @override
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
+}
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  late final RegistrationBloc _bloc;
+
+  @override
+  void initState() {
+    _bloc = getIt<RegistrationBloc>();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _bloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(text: ''),
-      backgroundColor: AppColors.haiti,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: SafeArea(
-          child: Column(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  LoginTitle(
-                    firstText: 'Создать акккаунт',
-                    secondaryText: 'Это займет меньше минуты',
-                  ),
-                  SizedBox(height: 30),
-                  CustomTextField(
-                    label: 'Name',
-                    onChanged: (String value) {},
-                    hintText: 'Name',
-                    leftIcon: Icons.email_outlined,
-                  ),
-                  SizedBox(height: 15),
-                  CustomTextField(
-                    label: 'Email',
-                    onChanged: (String value) {},
-                    hintText: 'Email',
-                    leftIcon: Icons.email_outlined,
-                  ),
-                  SizedBox(height: 15),
-                  CustomPasswordTextField(
-                    label: 'Password',
-                    onChanged: (String value) {},
-                  ),
-                  SizedBox(height: 30),
-                  CustomButton(onTap: () {}, name: 'Войти'),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      CustomNewText(
-                        text: 'Забыл пароль?',
-                        color: AppColors.activeBorder,
-                        fontSize: 16,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 30),
-                  CustomDivider(),
-                  SizedBox(height: 30),
-                  Row(
-                    spacing: 12,
-                    children: [
-                      Expanded(
-                        child: CustomButton(
-                          onTap: () {},
-                          name: 'Google',
-                          icon: AppImages.google,
-                        ),
-                      ),
-                      Expanded(
-                        child: CustomButton(
-                          onTap: () {},
-                          name: 'Apple',
-                          icon: AppImages.apple,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 5,
-                children: [
-                  CustomNewText(text: 'Уже есть аккаунт?', fontSize: 18),
-                  InkWell(
-                    onTap: (){Navigator.pop(context);},
-                    child: CustomNewText(
-                      text: 'Войти',
-                      fontSize: 18,
-                      color: AppColors.activeBorder,
+    return BlocEffectListener<RegistrationBloc, RegistrationEffect>(
+      bloc: _bloc,
+      listener: (context, effect) {
+        if (effect is RegistrationSucceeded) {
+          Navigator.pop(context);
+        } else if (effect is RegistrationFailed) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(effect.message)),
+          );
+        }
+      },
+      child: Scaffold(
+        appBar: CustomAppBar(text: ''),
+        backgroundColor: AppColors.haiti,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: SafeArea(
+            child: Column(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    LoginTitle(
+                      firstText: 'Создать акккаунт',
+                      secondaryText: 'Это займет меньше минуты',
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    SizedBox(height: 30),
+                    CustomTextField(
+                      label: 'Name',
+                      onChanged: (value) =>
+                          _bloc.add(RegisterNameChanged(value)),
+                      hintText: 'Name',
+                      leftIcon: Icons.email_outlined,
+                    ),
+                    SizedBox(height: 15),
+                    CustomTextField(
+                      label: 'Email',
+                      onChanged: (value) =>
+                          _bloc.add(RegisterEmailChanged(value)),
+                      hintText: 'Email',
+                      leftIcon: Icons.email_outlined,
+                    ),
+                    SizedBox(height: 15),
+                    CustomPasswordTextField(
+                      label: 'Password',
+                      onChanged: (value) =>
+                          _bloc.add(RegisterPasswordChanged(value)),
+                    ),
+                    SizedBox(height: 30),
+                    BlocBuilder<RegistrationBloc, RegistrationState>(
+                      bloc: _bloc,
+                      builder: (context, state) {
+                        if (state.isLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        return CustomButton(
+                          onTap: () =>
+                              _bloc.add(const RegisterWithEmailPressed()),
+                          name: 'Войти',
+                        );
+                      },
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        CustomNewText(
+                          text: 'Забыл пароль?',
+                          color: AppColors.activeBorder,
+                          fontSize: 16,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                    CustomDivider(),
+                    SizedBox(height: 30),
+                    Row(
+                      spacing: 12,
+                      children: [
+                        Expanded(
+                          child: CustomButton(
+                            onTap: () {
+                              if (!_bloc.state.isLoading) {
+                                _bloc.add(const RegisterWithGooglePressed());
+                              }
+                            },
+                            name: 'Google',
+                            icon: AppImages.google,
+                          ),
+                        ),
+                        Expanded(
+                          child: CustomButton(
+                            onTap: () {
+                              if (!_bloc.state.isLoading) {
+                                _bloc.add(const RegisterWithApplePressed());
+                              }
+                            },
+                            name: 'Apple',
+                            icon: AppImages.apple,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: 5,
+                  children: [
+                    CustomNewText(text: 'Уже есть аккаунт?', fontSize: 18),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: CustomNewText(
+                        text: 'Войти',
+                        fontSize: 18,
+                        color: AppColors.activeBorder,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
