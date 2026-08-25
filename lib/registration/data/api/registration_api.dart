@@ -40,7 +40,12 @@ class RegistrationApi extends RegistrationApiI {
     final user = userCred.user;
     if (user == null) return null;
 
-    return UserModel(id: user.uid, name: user.displayName ?? '', email: user.email ?? '');
+    return UserModel(
+      id: user.uid,
+      name: user.displayName ?? '',
+      email: user.email ?? '',
+      coinIds: const [],
+    );
   }
 
   @override
@@ -137,7 +142,12 @@ class RegistrationApi extends RegistrationApiI {
       'createdAt': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
 
-    return UserModel(id: user.uid, name: resolvedName, email: resolvedEmail);
+    return UserModel(
+      id: user.uid,
+      name: resolvedName,
+      email: resolvedEmail,
+      coinIds: const [],
+    );
   }
 
   @override
@@ -151,6 +161,16 @@ class RegistrationApi extends RegistrationApiI {
       await _googleSignIn.signOut();
     }
     await _auth.signOut();
+  }
+
+  @override
+  Future<void> addCoinToFavorites(String coinId) async {
+    final uid = _auth.currentUser?.uid;
+    if (uid == null) return;
+
+    await _firestore.collection('user').doc(uid).set({
+      'coinIds': FieldValue.arrayUnion([coinId]),
+    }, SetOptions(merge: true));
   }
 }
 
@@ -174,4 +194,6 @@ abstract class RegistrationApiI {
   Future<void> sendPasswordResetEmail(String email);
 
   Future<void> signOut();
+
+  Future<void> addCoinToFavorites(String coinId);
 }

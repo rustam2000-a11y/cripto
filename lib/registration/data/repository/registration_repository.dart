@@ -50,6 +50,9 @@ class RegistrationRepository extends RegistrationRepositoryI {
 
   @override
   Future<void> signOut() => _api.signOut();
+
+  @override
+  Future<void> addCoinToFavorites(String coinId) => _api.addCoinToFavorites(coinId);
 }
 
 abstract class RegistrationRepositoryI {
@@ -75,4 +78,6 @@ abstract class RegistrationRepositoryI {
   Future<void> sendPasswordResetEmail(String email);
 
   Future<void> signOut();
+
+  Future<void> addCoinToFavorites(String coinId);
 }
