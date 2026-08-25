@@ -16,7 +16,7 @@ class CustomBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 11),
       decoration: BoxDecoration(
         color: AppColors.navBarBackground,
         borderRadius: BorderRadius.circular(32),
@@ -51,14 +51,14 @@ class _NavBarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 14),
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: onTap,
         child: Image.asset(
           page.icon,
-          width: 26,
-          height: 26,
+          width: 20,
+          height: 20,
           color: isSelected ? AppColors.whiteColor : AppColors.blueBell,
         ),
       ),

@@ -13,4 +13,6 @@ class AppImages {
   static const high = 'assets/images/high.png';
   static const google ='assets/images/google.png';
   static const apple = 'assets/images/apple.png';
+  static const briefcase = 'assets/images/briefcase.png';
 }
+
