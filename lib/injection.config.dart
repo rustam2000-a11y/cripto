@@ -11,6 +11,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:crypto_assistant/assistant/bloc/filter_detailing_bloc.dart'
     as _i2;
+import 'package:crypto_assistant/briefcase/bloc/briefcase_bloc.dart' as _i612;
 import 'package:crypto_assistant/coin_card/bloc/coin_bloc.dart' as _i287;
 import 'package:crypto_assistant/home/bloc/home_bloc.dart' as _i838;
 import 'package:crypto_assistant/home/data/api/coint_api.dart' as _i997;
@@ -56,6 +57,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i838.HomeBloc>(
       () => _i838.HomeBloc(repository: gh<_i404.CoinRepositoryI>()),
+    );
+    gh.factory<_i612.BriefcaseBloc>(
+      () => _i612.BriefcaseBloc(
+        coinRepository: gh<_i404.CoinRepositoryI>(),
+        registrationRepository: gh<_i678.RegistrationRepositoryI>(),
+      ),
     );
     gh.factory<_i287.CoinBloc>(
       () => _i287.CoinBloc(
