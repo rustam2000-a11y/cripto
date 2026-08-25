@@ -52,10 +52,16 @@ class RegistrationRepository extends RegistrationRepositoryI {
   Future<void> signOut() => _api.signOut();
 
   @override
-  Future<void> addCoinToFavorites(String coinId) => _api.addCoinToFavorites(coinId);
+  Future<void> addCoinToBriefcase(String coinId) => _api.addCoinToBriefcase(coinId);
+
+  @override
+  Future<void> removeCoinFromBriefcase(String coinId) => _api.removeCoinFromBriefcase(coinId);
 
   @override
   Future<UserModel?> getCurrentUserProfile() => _api.getCurrentUserProfile();
+
+  @override
+  Stream<UserModel?> watchCurrentUserProfile() => _api.watchCurrentUserProfile();
 }
 
 abstract class RegistrationRepositoryI {
@@ -82,7 +88,11 @@ abstract class RegistrationRepositoryI {
 
   Future<void> signOut();
 
-  Future<void> addCoinToFavorites(String coinId);
+  Future<void> addCoinToBriefcase(String coinId);
+
+  Future<void> removeCoinFromBriefcase(String coinId);
 
   Future<UserModel?> getCurrentUserProfile();
+
+  Stream<UserModel?> watchCurrentUserProfile();
 }

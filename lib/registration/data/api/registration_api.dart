@@ -131,7 +131,9 @@ class RegistrationApi extends RegistrationApiI {
     String? name,
     String? avatarUrl,
   }) async {
-    final resolvedName = name?.isNotEmpty == true ? name! : (user.displayName ?? '');
+    final resolvedName = name?.isNotEmpty == true
+        ? name!
+        : (user.displayName ?? '');
     final resolvedEmail = user.email ?? '';
 
     await _firestore.collection('user').doc(user.uid).set({
@@ -164,12 +166,22 @@ class RegistrationApi extends RegistrationApiI {
   }
 
   @override
-  Future<void> addCoinToFavorites(String coinId) async {
+  Future<void> addCoinToBriefcase(String coinId) async {
     final uid = _auth.currentUser?.uid;
     if (uid == null) return;
 
     await _firestore.collection('user').doc(uid).set({
       'coinIds': FieldValue.arrayUnion([coinId]),
+    }, SetOptions(merge: true));
+  }
+
+  @override
+  Future<void> removeCoinFromBriefcase(String coinId) async {
+    final uid = _auth.currentUser?.uid;
+    if (uid == null) return;
+
+    await _firestore.collection('user').doc(uid).set({
+      'coinIds': FieldValue.arrayRemove([coinId]),
     }, SetOptions(merge: true));
   }
 
@@ -184,6 +196,18 @@ class RegistrationApi extends RegistrationApiI {
 
     return UserModel.fromDocument(data);
   }
+
+  @override
+  Stream<UserModel?> watchCurrentUserProfile() {
+    final uid = _auth.currentUser?.uid;
+    if (uid == null) return Stream.value(null);
+
+    return _firestore.collection('user').doc(uid).snapshots().map((doc) {
+      final data = doc.data();
+      if (data == null) return null;
+      return UserModel.fromDocument(data);
+    });
+  }
 }
 
 abstract class RegistrationApiI {
@@ -191,7 +215,10 @@ abstract class RegistrationApiI {
 
   User? get currentUser;
 
-  Future<UserModel?> signInWithEmail({required String email, required String password});
+  Future<UserModel?> signInWithEmail({
+    required String email,
+    required String password,
+  });
 
   Future<UserModel?> registerWithEmail({
     required String email,
@@ -207,7 +234,11 @@ abstract class RegistrationApiI {
 
   Future<void> signOut();
 
-  Future<void> addCoinToFavorites(String coinId);
+  Future<void> addCoinToBriefcase(String coinId);
+
+  Future<void> removeCoinFromBriefcase(String coinId);
 
   Future<UserModel?> getCurrentUserProfile();
+
+  Stream<UserModel?> watchCurrentUserProfile();
 }
