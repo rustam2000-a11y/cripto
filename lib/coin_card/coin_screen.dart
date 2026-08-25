@@ -2,7 +2,6 @@ import 'package:bloc_after_effect/bloc_after_effect.dart';
 import 'package:crypto_assistant/home/home_widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
-import '../briefcase/briefcase_screen.dart';
 import '../injection.dart';
 import '../presentation/app_colors.dart';
 import '../registration/login_screen.dart';
@@ -50,15 +49,14 @@ class _CoinScreenState extends State<CoinScreen> {
       effectListener: (context, effect) {
         switch (effect) {
           case CoinShowError(:final message):
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(message)),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(message)));
           case CoinNavigateToLogin():
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => LoginScreen()),
             );
-
         }
       },
       builder: (context, state) {

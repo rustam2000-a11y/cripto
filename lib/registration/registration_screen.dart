@@ -39,16 +39,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocEffectBuilder<RegistrationBloc, RegistrationState, RegistrationEffect>(
+    return BlocEffectBuilder<
+      RegistrationBloc,
+      RegistrationState,
+      RegistrationEffect
+    >(
       bloc: _bloc,
       effectListener: (context, effect) {
         switch (effect) {
           case RegistrationSucceeded():
-            Navigator.pop(context);
+            Navigator.pop(context, true);
           case RegistrationFailed(:final message):
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(message)),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(message)));
         }
       },
       builder: (context, state) => Scaffold(

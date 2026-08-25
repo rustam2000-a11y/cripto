@@ -47,9 +47,9 @@ class _LoginScreenState extends State<LoginScreen> {
           case LoginSucceeded():
             Navigator.pop(context);
           case LoginFailed(:final message):
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(message)),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(message)));
         }
       },
       builder: (context, state) => Scaffold(
@@ -72,8 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 30),
                     CustomTextField(
                       label: 'Email',
-                      onChanged: (value) =>
-                          _bloc.add(LoginEmailChanged(value)),
+                      onChanged: (value) => _bloc.add(LoginEmailChanged(value)),
                       hintText: 'Email',
                       leftIcon: Icons.email_outlined,
                     ),
@@ -89,8 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const Center(child: CircularProgressIndicator())
                     else
                       CustomButton(
-                        onTap: () =>
-                            _bloc.add(const SignInWithEmailPressed()),
+                        onTap: () => _bloc.add(const SignInWithEmailPressed()),
                         name: 'Войти',
                       ),
                     SizedBox(height: 10),
@@ -143,13 +141,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     CustomNewText(text: 'Нет аккаунта?', fontSize: 18),
                     InkWell(
-                      onTap: () {
-                        Navigator.push(
+                      onTap: () async {
+                        final registered = await Navigator.push<bool>(
                           context,
                           MaterialPageRoute(
                             builder: (context) => RegistrationScreen(),
                           ),
                         );
+                        if (registered == true && context.mounted) {
+                          Navigator.pop(context);
+                        }
                       },
                       child: CustomNewText(
                         text: 'Зарегестрироваться',
