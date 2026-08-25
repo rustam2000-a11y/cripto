@@ -34,3 +34,8 @@ class ChartLoadedEvent extends CoinEvent {
 
   final List<PricePoint> points;
 }
+
+class AddToBriefcase extends CoinEvent {
+  const AddToBriefcase();
+
+}

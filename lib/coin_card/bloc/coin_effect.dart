@@ -15,3 +15,11 @@ class CoinShowError extends CoinEffect {
   @override
   List<Object?> get props => [message];
 }
+
+class CoinNavigateToLogin extends CoinEffect {
+  const CoinNavigateToLogin();
+}
+
+class CoinNavigateToBriefcase extends CoinEffect {
+  const CoinNavigateToBriefcase();
+}

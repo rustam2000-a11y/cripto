@@ -1,7 +1,8 @@
+import 'package:bloc_after_effect/bloc_after_effect.dart';
 import 'package:crypto_assistant/home/home_widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../briefcase/briefcase_screen.dart';
 import '../injection.dart';
 import '../presentation/app_colors.dart';
 import '../registration/login_screen.dart';
@@ -14,6 +15,7 @@ import '../widget/custom_button.dart';
 import '../widget/format_utils.dart';
 import '../widget/title_text_column.dart';
 import 'bloc/coin_bloc.dart';
+import 'bloc/coin_effect.dart';
 import 'bloc/coin_event.dart';
 import 'bloc/coin_state.dart';
 
@@ -43,8 +45,26 @@ class _CoinScreenState extends State<CoinScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CoinBloc, CoinState>(
+    return BlocEffectBuilder<CoinBloc, CoinState, CoinEffect>(
       bloc: _bloc,
+      effectListener: (context, effect) {
+        switch (effect) {
+          case CoinShowError(:final message):
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(message)),
+            );
+          case CoinNavigateToLogin():
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoginScreen()),
+            );
+          case CoinNavigateToBriefcase():
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => BriefcaseScreen()),
+            );
+        }
+      },
       builder: (context, state) {
         final coin = state.coin;
         return Scaffold(
@@ -190,15 +210,8 @@ class _CoinScreenState extends State<CoinScreen> {
                           top: false,
                           child: CustomButton(
                             name: 'Добавить в избранное',
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => LoginScreen(),
-                                ),
-                              );
-                            },
-
+                            onTap: () =>
+                                _bloc.add(const AddToBriefcase()),
                           ),
                         ),
                       ],
