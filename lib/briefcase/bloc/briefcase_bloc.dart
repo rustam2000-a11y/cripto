@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:bloc_after_effect/bloc_after_effect.dart';
 import 'package:injectable/injectable.dart';
+import 'package:rxdart/rxdart.dart';
 
+import '../../core/models/user_model.dart';
 import '../../home/data/models/coin_model.dart';
 import '../../home/data/repository/coint_rpository.dart';
 import '../../registration/data/repository/registration_repository.dart';
@@ -41,13 +43,16 @@ class BriefcaseBloc extends EffectBloc<BriefcaseEvent, BriefcaseState, Briefcase
     _watchUserCoins();
   }
 
-  Future<void> _watchUserCoins() async {
-    final userProfile = await _registrationRepository.getCurrentUserProfile();
-    final coinIds = userProfile?.coinIds ?? const [];
-
+  void _watchUserCoins() {
     _coinsSubscription?.cancel();
-    _coinsSubscription = _coinRepository.watchCoins().listen((coins) {
-      final userCoins = coins.where((coin) => coinIds.contains(coin.id)).toList();
+    _coinsSubscription = Rx.combineLatest2<List<CoinModel>, UserModel?, List<CoinModel>>(
+      _coinRepository.watchCoins(),
+      _registrationRepository.watchCurrentUserProfile(),
+      (coins, userProfile) {
+        final coinIds = userProfile?.coinIds ?? const [];
+        return coins.where((coin) => coinIds.contains(coin.id)).toList();
+      },
+    ).listen((userCoins) {
       add(BriefcaseCoinsLoadedEvent(coins: userCoins));
     });
   }
