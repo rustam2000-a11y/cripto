@@ -172,6 +172,18 @@ class RegistrationApi extends RegistrationApiI {
       'coinIds': FieldValue.arrayUnion([coinId]),
     }, SetOptions(merge: true));
   }
+
+  @override
+  Future<UserModel?> getCurrentUserProfile() async {
+    final uid = _auth.currentUser?.uid;
+    if (uid == null) return null;
+
+    final doc = await _firestore.collection('user').doc(uid).get();
+    final data = doc.data();
+    if (data == null) return null;
+
+    return UserModel.fromDocument(data);
+  }
 }
 
 abstract class RegistrationApiI {
@@ -196,4 +208,6 @@ abstract class RegistrationApiI {
   Future<void> signOut();
 
   Future<void> addCoinToFavorites(String coinId);
+
+  Future<UserModel?> getCurrentUserProfile();
 }
