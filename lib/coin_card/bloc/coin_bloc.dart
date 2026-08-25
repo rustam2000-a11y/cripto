@@ -22,6 +22,7 @@ class CoinBloc extends EffectBloc<CoinEvent, CoinState, CoinEffect> {
     on<LoadCoinDetailsEvent>((event, emit) {
       _watchCoin(event.coinId);
       _watchChart(event.coinId);
+      _loadBriefcaseStatus(event.coinId);
     });
     on<CoinLoadingEvent>((event, emit) {
       emit(state.copyWith(isLoading: event.isLoading));
@@ -35,8 +36,11 @@ class CoinBloc extends EffectBloc<CoinEvent, CoinState, CoinEffect> {
     on<ChartLoadedEvent>((event, emit) {
       emit(state.copyWith(chartPoints: event.points, isChartLoading: false));
     });
-    on<AddToBriefcase>((event, emit) {
-      _briefcase();
+    on<ToggleBriefcaseEvent>((event, emit) {
+      _toggleBriefcase();
+    });
+    on<BriefcaseStatusLoadedEvent>((event, emit) {
+      emit(state.copyWith(isFavorite: event.isFavorite));
     });
   }
 
@@ -61,15 +65,32 @@ class CoinBloc extends EffectBloc<CoinEvent, CoinState, CoinEffect> {
     });
   }
 
-  Future<void> _briefcase() async {
+  Future<void> _loadBriefcaseStatus(String coinId) async {
+    if (_registrationRepository.currentUser == null) {
+      add(const BriefcaseStatusLoadedEvent(isFavorite: false));
+      return;
+    }
+    final userProfile = await _registrationRepository.getCurrentUserProfile();
+    final isFavorite = userProfile?.coinIds.contains(coinId) ?? false;
+    add(BriefcaseStatusLoadedEvent(isFavorite: isFavorite));
+  }
+
+  Future<void> _toggleBriefcase() async {
     if (_registrationRepository.currentUser == null) {
       emitEffect(const CoinNavigateToLogin());
       return;
     }
     final coinId = state.coin?.id;
-    if (coinId != null) {
-      await _registrationRepository.addCoinToFavorites(coinId);
+    if (coinId == null) return;
+
+    if (state.isFavorite) {
+      await _registrationRepository.removeCoinFromBriefcase(coinId);
+      add(const BriefcaseStatusLoadedEvent(isFavorite: false));
+      return;
     }
+
+    await _registrationRepository.addCoinToBriefcase(coinId);
+    add(const BriefcaseStatusLoadedEvent(isFavorite: true));
     emitEffect(const CoinNavigateToBriefcase());
   }
 

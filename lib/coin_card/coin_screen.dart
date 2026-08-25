@@ -209,9 +209,11 @@ class _CoinScreenState extends State<CoinScreen> {
                         SafeArea(
                           top: false,
                           child: CustomButton(
-                            name: 'Добавить в избранное',
+                            name: state.isFavorite
+                                ? 'Убрать из избранного'
+                                : 'Добавить в избранное',
                             onTap: () =>
-                                _bloc.add(const AddToBriefcase()),
+                                _bloc.add(const ToggleBriefcaseEvent()),
                           ),
                         ),
                       ],

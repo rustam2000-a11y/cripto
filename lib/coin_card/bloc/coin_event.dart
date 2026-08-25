@@ -35,7 +35,12 @@ class ChartLoadedEvent extends CoinEvent {
   final List<PricePoint> points;
 }
 
-class AddToBriefcase extends CoinEvent {
-  const AddToBriefcase();
+class ToggleBriefcaseEvent extends CoinEvent {
+  const ToggleBriefcaseEvent();
+}
 
+class BriefcaseStatusLoadedEvent extends CoinEvent {
+  const BriefcaseStatusLoadedEvent({required this.isFavorite});
+
+  final bool isFavorite;
 }
