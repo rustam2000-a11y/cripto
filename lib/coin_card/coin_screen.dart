@@ -58,11 +58,7 @@ class _CoinScreenState extends State<CoinScreen> {
               context,
               MaterialPageRoute(builder: (context) => LoginScreen()),
             );
-          case CoinNavigateToBriefcase():
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => BriefcaseScreen()),
-            );
+
         }
       },
       builder: (context, state) {

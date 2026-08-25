@@ -91,7 +91,7 @@ class CoinBloc extends EffectBloc<CoinEvent, CoinState, CoinEffect> {
 
     await _registrationRepository.addCoinToBriefcase(coinId);
     add(const BriefcaseStatusLoadedEvent(isFavorite: true));
-    emitEffect(const CoinNavigateToBriefcase());
+
   }
 
   @override

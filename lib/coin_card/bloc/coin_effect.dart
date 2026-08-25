@@ -20,6 +20,4 @@ class CoinNavigateToLogin extends CoinEffect {
   const CoinNavigateToLogin();
 }
 
-class CoinNavigateToBriefcase extends CoinEffect {
-  const CoinNavigateToBriefcase();
-}
+
