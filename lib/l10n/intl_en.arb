@@ -1,0 +1,8 @@
+{
+  "@@locale": "en",
+  "noItemsAddedYet": "No coins in portfolio",
+  "@noItemsAddedYet": {
+    "description": "Shown on the briefcase screen when the user has not added any coins yet"
+  },
+  "volume24Hours": "Volume 24 hours"
+}
