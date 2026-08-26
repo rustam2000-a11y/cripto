@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../coin_card/coin_screen.dart';
 import '../home/home_widget/custom_app_bar.dart';
+import '../generated/l10n.dart';
 import '../injection.dart';
 import '../presentation/app_colors.dart';
 import '../registration/login_screen.dart';
@@ -54,7 +55,7 @@ class _BriefcaseScreenState extends State<BriefcaseScreen> {
             return const Center(child: CircularProgressIndicator());
           }
           if (state.coins.isEmpty) {
-            return const Center(child: Text('Нет монет в портфеле'));
+            return Center(child: Text(S.of(context).noItemsAddedYet));
           }
           return ListView.separated(
             padding: const EdgeInsets.all(8),

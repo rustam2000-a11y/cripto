@@ -2,6 +2,7 @@ import 'package:crypto_assistant/home/bloc/home_bloc.dart';
 import 'package:crypto_assistant/home/bloc/home_event.dart';
 import 'package:crypto_assistant/home/bloc/home_state.dart';
 import 'package:crypto_assistant/presentation/app_colors.dart';
+import 'package:crypto_assistant/presentation/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,6 +11,7 @@ import '../injection.dart';
 import '../widget/coin_card.dart';
 import 'home_widget/coin_search_field.dart';
 import 'home_widget/custom_app_bar.dart';
+import 'language/language_bottom_sheet.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -37,7 +39,21 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.haiti,
-      appBar: CustomAppBar(text: "Crypto Assistant", leadingIcon: false),
+      appBar: CustomAppBar(
+        text: "Crypto Assistant",
+        leadingIcon: false,
+        action: InkWell(
+          onTap: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return LanguageBottomSheet();
+              },
+            );
+          },
+          child: Image.asset(AppImages.english, width: 24, height: 24),
+        ),
+      ),
       body: BlocBuilder<HomeBloc, HomeState>(
         bloc: _bloc,
         builder: (context, state) {

@@ -11,7 +11,7 @@ class CoinSearchField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
       child: SizedBox(
-        height: 52,
+        height: 44,
         child: TextField(
           onChanged: onChanged,
           style: const TextStyle(
@@ -39,11 +39,7 @@ class CoinSearchField extends StatelessWidget {
               minWidth: 52,
               minHeight: 52,
             ),
-            suffixIcon: const Icon(
-              Icons.tune_rounded,
-              color: Color(0xFFC4C4D8),
-              size: 22,
-            ),
+
             filled: true,
             fillColor: const Color(0xFF17143B),
             contentPadding: const EdgeInsets.symmetric(

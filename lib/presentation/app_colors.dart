@@ -28,6 +28,10 @@ class AppColors {
   static const magenta = Color(0xFFE879F9);
   static const skyBlue = Color(0xFF60A5FA);
   static const activeBorder = Color(0xFF7B68EE);
-
+  static const sheetBackground = Color(0xFF12142B);
+  static const sheetHandle = Color(0xFF34365A);
+  static const selectedItemBackground = Color(0xFF1B1F3F);
+  static const closeButtonBackground = Color(0xFF1E2144);
+  static const closeIcon = Color(0xFF9295B8);
 
 }

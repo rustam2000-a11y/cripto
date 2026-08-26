@@ -6,6 +6,8 @@ import 'package:crypto_assistant/widget/format_utils.dart';
 import 'package:crypto_assistant/widget/title_text_column.dart';
 import 'package:flutter/material.dart';
 
+import '../generated/l10n.dart';
+
 class CoinCard extends StatelessWidget {
   const CoinCard({
     super.key,
@@ -68,7 +70,7 @@ class CoinCard extends StatelessWidget {
             spacing: 20,
             children: [
               CoinStatColumn(
-                title: 'Объём 24 часа',
+                title: S.of(context).volume24Hours,
                 text: formatVolume(totalVolume),
               ),
               CoinStatColumn(
