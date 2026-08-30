@@ -46,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
           onTap: () {
             showModalBottomSheet(
               context: context,
+              isScrollControlled: true,
               builder: (context) {
                 return LanguageBottomSheet();
               },
