@@ -18,6 +18,13 @@ import 'package:crypto_assistant/home/data/api/coint_api.dart' as _i997;
 import 'package:crypto_assistant/home/data/client/api_client.dart' as _i292;
 import 'package:crypto_assistant/home/data/repository/coint_rpository.dart'
     as _i404;
+import 'package:crypto_assistant/home/language/bloc/language_bloc.dart'
+    as _i861;
+import 'package:crypto_assistant/home/language/data/api/language_api.dart'
+    as _i234;
+import 'package:crypto_assistant/home/language/data/repository/language_repository.dart'
+    as _i576;
+import 'package:crypto_assistant/injection.dart' as _i437;
 import 'package:crypto_assistant/registration/bloc/login_bloc.dart' as _i471;
 import 'package:crypto_assistant/registration/bloc/registration_bloc.dart'
     as _i688;
@@ -27,14 +34,20 @@ import 'package:crypto_assistant/registration/data/repository/registration_repos
     as _i678;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
-  _i174.GetIt init({
+  Future<_i174.GetIt> init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
-  }) {
+  }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    final registerModule = _$RegisterModule();
+    await gh.factoryAsync<_i460.SharedPreferences>(
+      () => registerModule.prefs,
+      preResolve: true,
+    );
     gh.singleton<_i292.ApiClient>(() => _i292.ApiClient());
     gh.factory<_i997.CoinApI>(() => _i997.CoinApi(gh<_i292.ApiClient>()));
     gh.lazySingleton<_i404.CoinRepositoryI>(
@@ -51,6 +64,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i688.RegistrationBloc(
         repository: gh<_i678.RegistrationRepositoryI>(),
       ),
+    );
+    gh.factory<_i234.LanguageApiI>(
+      () => _i234.LanguageApi(gh<_i460.SharedPreferences>()),
     );
     gh.factory<_i2.FilterDetailingBloc>(
       () => _i2.FilterDetailingBloc(repository: gh<_i404.CoinRepositoryI>()),
@@ -70,6 +86,16 @@ extension GetItInjectableX on _i174.GetIt {
         registrationRepository: gh<_i678.RegistrationRepositoryI>(),
       ),
     );
+    gh.lazySingleton<_i576.LanguageRepositoryI>(
+      () => _i576.LanguageRepository(api: gh<_i234.LanguageApiI>()),
+    );
+    gh.factory<_i861.LanguageBloc>(
+      () => _i861.LanguageBloc(
+        languageRepository: gh<_i576.LanguageRepositoryI>(),
+      ),
+    );
     return this;
   }
 }
+
+class _$RegisterModule extends _i437.RegisterModule {}
