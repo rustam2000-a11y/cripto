@@ -47,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
             leadingIcon: false,
             action: [
               InkWell(
+                borderRadius: BorderRadius.circular(20),
                 onTap: () {
                   showModalBottomSheet(
                     context: context,
@@ -60,11 +61,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               if (state.isLoggedIn)
                 InkWell(
+                  borderRadius: BorderRadius.circular(20),
                   onTap: () => _bloc.add(LogOutEvent()),
                   child: Image.asset(
                     AppImages.exit,
-                    width: 24,
-                    height: 24,
+                    width: 19,
+                    height: 19,
                     color: AppColors.whiteColor,
                   ),
                 ),
