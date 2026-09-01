@@ -17,5 +17,6 @@ class AppImages {
   static const english = 'assets/images/english.png';
   static const englishFlag = 'assets/images/english_flag.png';
   static const russianFlag = 'assets/images/russian_flag.png';
+  static const exit = 'assets/images/exit.png';
 }
 

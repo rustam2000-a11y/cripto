@@ -10,14 +10,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.colors = AppColors.haiti,
     this.leadingIcon = true,
     this.action,
-    
   });
 
   final String text;
   final Color colors;
   final bool leadingIcon;
-  final Widget? action;
-  
+  final List<Widget>? action;
 
   @override
   Widget build(BuildContext context) {
@@ -31,17 +29,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: colors,
       surfaceTintColor: Colors.transparent,
       scrolledUnderElevation: 0,
-      leading: leadingIcon? IconButton(
-        onPressed: Navigator.of(context).pop,
-        icon: Icon(Icons.arrow_back_ios_new),
-        color: Colors.white,
-      )
-      :SizedBox(),
+      leading: leadingIcon
+          ? IconButton(
+              onPressed: Navigator.of(context).pop,
+              icon: Icon(Icons.arrow_back_ios_new),
+              color: Colors.white,
+            )
+          : SizedBox(),
       actions: [
-        if (action != null) Padding(
-          padding: const EdgeInsets.only(right: 18),
-          child: action!,
-        ),
+        if (action != null)
+          Padding(
+            padding: const EdgeInsets.only(right: 18),
+            child: Row(
+              spacing: 13,
+              mainAxisSize: MainAxisSize.min,
+              children: action!,
+            ),
+          ),
       ],
     );
   }
@@ -49,5 +53,3 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
-
-
