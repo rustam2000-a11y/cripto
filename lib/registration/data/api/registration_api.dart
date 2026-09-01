@@ -23,7 +23,8 @@ class RegistrationApi extends RegistrationApiI {
   bool _googleSignInInitialized = false;
 
   @override
-  Stream<User?> authStateChanges() => _auth.authStateChanges();
+  Stream<bool> authStateChanges() =>
+      _auth.authStateChanges().map((user) => user != null);
 
   @override
   User? get currentUser => _auth.currentUser;
@@ -211,7 +212,7 @@ class RegistrationApi extends RegistrationApiI {
 }
 
 abstract class RegistrationApiI {
-  Stream<User?> authStateChanges();
+  Stream<bool> authStateChanges();
 
   User? get currentUser;
 

@@ -31,3 +31,9 @@ class ChangedFilteredItemsEvent extends HomeEvent {
 class LogOutEvent extends HomeEvent {
   const LogOutEvent();
 }
+
+class LoggedInStatusChangedEvent extends HomeEvent {
+  const LoggedInStatusChangedEvent({required this.isLoggedIn});
+
+  final bool isLoggedIn;
+}

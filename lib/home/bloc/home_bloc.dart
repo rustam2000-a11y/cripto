@@ -39,17 +39,26 @@ class HomeBloc extends EffectBloc<HomeEvent, HomeState, HomeEffect> {
     on<LogOutEvent>((event, emit) {
       _logOut();
     });
+    on<LoggedInStatusChangedEvent>((event, emit) {
+      emit(state.copyWith(isLoggedIn: event.isLoggedIn));
+    });
     _init();
   }
 
   final CoinRepositoryI _coinRepository;
   final RegistrationRepositoryI _registrationRepository;
   StreamSubscription<List<CoinModel>>? _coinsSubscription;
+  StreamSubscription<bool>? _authSubscription;
 
   void _init() {
     add(LoadingEvent(isLoading: true));
     _coinsSubscription = _coinRepository.watchCoins().listen((coins) {
       add(LoadItemsEvent(items: coins));
+    });
+    _authSubscription = _registrationRepository.authStateChanges().listen((
+      isLoggedIn,
+    ) {
+      add(LoggedInStatusChangedEvent(isLoggedIn: isLoggedIn));
     });
   }
 
@@ -73,6 +82,7 @@ class HomeBloc extends EffectBloc<HomeEvent, HomeState, HomeEffect> {
   @override
   Future<void> close() {
     _coinsSubscription?.cancel();
+    _authSubscription?.cancel();
     return super.close();
   }
 }

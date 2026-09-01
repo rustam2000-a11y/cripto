@@ -37,85 +37,91 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.haiti,
-      appBar: CustomAppBar(
-        text: "Crypto Assistant",
-        leadingIcon: false,
-        action: [
-          InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                builder: (context) {
-                  return LanguageBottomSheet();
+    return BlocBuilder<HomeBloc, HomeState>(
+      bloc: _bloc,
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: AppColors.haiti,
+          appBar: CustomAppBar(
+            text: "Crypto Assistant",
+            leadingIcon: false,
+            action: [
+              InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) {
+                      return LanguageBottomSheet();
+                    },
+                  );
                 },
-              );
-            },
-            child: Image.asset(AppImages.english, width: 24, height: 24),
-          ),
-          InkWell(
-            onTap: () => _bloc.add(LogOutEvent()),
-            child: Image.asset(
-              AppImages.exit,
-              width: 24,
-              height: 24,
-              color: AppColors.whiteColor,
-            ),
-          ),
-        ],
-      ),
-      body: BlocBuilder<HomeBloc, HomeState>(
-        bloc: _bloc,
-        builder: (context, state) {
-          if (state.isLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (state.items.isEmpty) {
-            return const Center(child: Text('Нет данных'));
-          }
-          return Column(
-            children: [
-              CoinSearchField(
-                onChanged: (value) {
-                  _bloc.add(SearchQueryChangedEvent(query: value));
-                },
+                child: Image.asset(AppImages.english, width: 24, height: 24),
               ),
-              Expanded(
-                child: ListView.separated(
-                  padding: const EdgeInsets.all(8),
-                  itemCount: state.filteredItems.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: 8),
-                  itemBuilder: (context, index) {
-                    final coin = state.filteredItems[index];
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => CoinScreen(coinId: coin.id),
+              if (state.isLoggedIn)
+                InkWell(
+                  onTap: () => _bloc.add(LogOutEvent()),
+                  child: Image.asset(
+                    AppImages.exit,
+                    width: 24,
+                    height: 24,
+                    color: AppColors.whiteColor,
+                  ),
+                ),
+            ],
+          ),
+          body: Builder(
+            builder: (context) {
+              if (state.isLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (state.items.isEmpty) {
+                return const Center(child: Text('Нет данных'));
+              }
+              return Column(
+                children: [
+                  CoinSearchField(
+                    onChanged: (value) {
+                      _bloc.add(SearchQueryChangedEvent(query: value));
+                    },
+                  ),
+                  Expanded(
+                    child: ListView.separated(
+                      padding: const EdgeInsets.all(8),
+                      itemCount: state.filteredItems.length,
+                      separatorBuilder: (_, __) => const SizedBox(height: 8),
+                      itemBuilder: (context, index) {
+                        final coin = state.filteredItems[index];
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => CoinScreen(coinId: coin.id),
+                              ),
+                            );
+                          },
+                          child: CoinCard(
+                            name: coin.name,
+                            symbol: coin.symbol,
+                            imageUrl: coin.image,
+                            currentPrice: coin.currentPrice,
+                            priceChangePercentage24h:
+                                coin.priceChangePercentage24h,
+                            totalVolume: coin.totalVolume,
+                            high24h: coin.high24h,
+                            marketCapRank: coin.marketCapRank,
                           ),
                         );
                       },
-                      child: CoinCard(
-                        name: coin.name,
-                        symbol: coin.symbol,
-                        imageUrl: coin.image,
-                        currentPrice: coin.currentPrice,
-                        priceChangePercentage24h: coin.priceChangePercentage24h,
-                        totalVolume: coin.totalVolume,
-                        high24h: coin.high24h,
-                        marketCapRank: coin.marketCapRank,
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          );
-        },
-      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

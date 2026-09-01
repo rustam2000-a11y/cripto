@@ -11,7 +11,7 @@ class RegistrationRepository extends RegistrationRepositoryI {
   final RegistrationApiI _api;
 
   @override
-  Stream<User?> authStateChanges() => _api.authStateChanges();
+  Stream<bool> authStateChanges() => _api.authStateChanges();
 
   @override
   User? get currentUser => _api.currentUser;
@@ -64,7 +64,7 @@ class RegistrationRepository extends RegistrationRepositoryI {
 }
 
 abstract class RegistrationRepositoryI {
-  Stream<User?> authStateChanges();
+  Stream<bool> authStateChanges();
 
   User? get currentUser;
 
