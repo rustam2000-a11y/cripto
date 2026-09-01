@@ -6,7 +6,6 @@ import '../home/home_widget/custom_app_bar.dart';
 import '../generated/l10n.dart';
 import '../injection.dart';
 import '../presentation/app_colors.dart';
-import '../registration/login_screen.dart';
 import '../widget/coin_card.dart';
 import 'bloc/briefcase_bloc.dart';
 import 'bloc/briefcase_effect.dart';
@@ -41,15 +40,7 @@ class _BriefcaseScreenState extends State<BriefcaseScreen> {
       appBar: const CustomAppBar(text: 'Мой портфель', leadingIcon: false),
       body: BlocEffectBuilder<BriefcaseBloc, BriefcaseState, BriefcaseEffect>(
         bloc: _bloc,
-        effectListener: (context, effect) {
-          switch (effect) {
-            case BriefcaseNavigateToLogin():
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginScreen()),
-              );
-          }
-        },
+        effectListener: (context, effect) {},
         builder: (context, state) {
           if (state.isLoading) {
             return const Center(child: CircularProgressIndicator());
@@ -67,7 +58,9 @@ class _BriefcaseScreenState extends State<BriefcaseScreen> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => CoinScreen(coinId: coin.id)),
+                    MaterialPageRoute(
+                      builder: (_) => CoinScreen(coinId: coin.id),
+                    ),
                   );
                 },
                 child: CoinCard(

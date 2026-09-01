@@ -13,7 +13,8 @@ import 'briefcase_event.dart';
 import 'briefcase_state.dart';
 
 @injectable
-class BriefcaseBloc extends EffectBloc<BriefcaseEvent, BriefcaseState, BriefcaseEffect> {
+class BriefcaseBloc
+    extends EffectBloc<BriefcaseEvent, BriefcaseState, BriefcaseEffect> {
   BriefcaseBloc({
     required CoinRepositoryI coinRepository,
     required RegistrationRepositoryI registrationRepository,
@@ -33,33 +34,42 @@ class BriefcaseBloc extends EffectBloc<BriefcaseEvent, BriefcaseState, Briefcase
   final CoinRepositoryI _coinRepository;
   final RegistrationRepositoryI _registrationRepository;
   StreamSubscription<List<CoinModel>>? _coinsSubscription;
+  StreamSubscription<bool>? _authSubscription;
 
   void init() {
-    if (_registrationRepository.currentUser == null) {
-      emitEffect(const BriefcaseNavigateToLogin());
-      return;
-    }
-    add(const BriefcaseLoadingEvent(isLoading: true));
-    _watchUserCoins();
+    _authSubscription = _registrationRepository.authStateChanges().listen((
+      isLoggedIn,
+    ) {
+      if (!isLoggedIn) {
+        _coinsSubscription?.cancel();
+        _coinsSubscription = null;
+        add(const BriefcaseCoinsLoadedEvent(coins: []));
+        return;
+      }
+      add(const BriefcaseLoadingEvent(isLoading: true));
+      _watchUserCoins();
+    });
   }
 
   void _watchUserCoins() {
     _coinsSubscription?.cancel();
-    _coinsSubscription = Rx.combineLatest2<List<CoinModel>, UserModel?, List<CoinModel>>(
-      _coinRepository.watchCoins(),
-      _registrationRepository.watchCurrentUserProfile(),
-      (coins, userProfile) {
-        final coinIds = userProfile?.coinIds ?? const [];
-        return coins.where((coin) => coinIds.contains(coin.id)).toList();
-      },
-    ).listen((userCoins) {
-      add(BriefcaseCoinsLoadedEvent(coins: userCoins));
-    });
+    _coinsSubscription =
+        Rx.combineLatest2<List<CoinModel>, UserModel?, List<CoinModel>>(
+          _coinRepository.watchCoins(),
+          _registrationRepository.watchCurrentUserProfile(),
+          (coins, userProfile) {
+            final coinIds = userProfile?.coinIds ?? const [];
+            return coins.where((coin) => coinIds.contains(coin.id)).toList();
+          },
+        ).listen((userCoins) {
+          add(BriefcaseCoinsLoadedEvent(coins: userCoins));
+        });
   }
 
   @override
   Future<void> close() {
     _coinsSubscription?.cancel();
+    _authSubscription?.cancel();
     return super.close();
   }
 }

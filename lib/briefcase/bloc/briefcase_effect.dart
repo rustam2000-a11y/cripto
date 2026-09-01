@@ -6,7 +6,3 @@ abstract class BriefcaseEffect extends Equatable {
   @override
   List<Object?> get props => [];
 }
-
-class BriefcaseNavigateToLogin extends BriefcaseEffect {
-  const BriefcaseNavigateToLogin();
-}
