@@ -30,11 +30,7 @@ class RegistrationRepository extends RegistrationRepositoryI {
     required String password,
     required String name,
   }) {
-    return _api.registerWithEmail(
-      email: email,
-      password: password,
-      name: name,
-    );
+    return _api.registerWithEmail(email: email, password: password, name: name);
   }
 
   @override
@@ -49,19 +45,22 @@ class RegistrationRepository extends RegistrationRepositoryI {
   }
 
   @override
-  Future<void> signOut() => _api.signOut();
+  Future<void> logout() => _api.logout();
 
   @override
-  Future<void> addCoinToBriefcase(String coinId) => _api.addCoinToBriefcase(coinId);
+  Future<void> addCoinToBriefcase(String coinId) =>
+      _api.addCoinToBriefcase(coinId);
 
   @override
-  Future<void> removeCoinFromBriefcase(String coinId) => _api.removeCoinFromBriefcase(coinId);
+  Future<void> removeCoinFromBriefcase(String coinId) =>
+      _api.removeCoinFromBriefcase(coinId);
 
   @override
   Future<UserModel?> getCurrentUserProfile() => _api.getCurrentUserProfile();
 
   @override
-  Stream<UserModel?> watchCurrentUserProfile() => _api.watchCurrentUserProfile();
+  Stream<UserModel?> watchCurrentUserProfile() =>
+      _api.watchCurrentUserProfile();
 }
 
 abstract class RegistrationRepositoryI {
@@ -86,7 +85,7 @@ abstract class RegistrationRepositoryI {
 
   Future<void> sendPasswordResetEmail(String email);
 
-  Future<void> signOut();
+  Future<void> logout();
 
   Future<void> addCoinToBriefcase(String coinId);
 

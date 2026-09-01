@@ -158,7 +158,7 @@ class RegistrationApi extends RegistrationApiI {
   }
 
   @override
-  Future<void> signOut() async {
+  Future<void> logout() async {
     if (_googleSignInInitialized) {
       await _googleSignIn.signOut();
     }
@@ -232,7 +232,7 @@ abstract class RegistrationApiI {
 
   Future<void> sendPasswordResetEmail(String email);
 
-  Future<void> signOut();
+  Future<void> logout();
 
   Future<void> addCoinToBriefcase(String coinId);
 

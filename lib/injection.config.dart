@@ -71,9 +71,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i2.FilterDetailingBloc>(
       () => _i2.FilterDetailingBloc(repository: gh<_i404.CoinRepositoryI>()),
     );
-    gh.factory<_i838.HomeBloc>(
-      () => _i838.HomeBloc(repository: gh<_i404.CoinRepositoryI>()),
-    );
     gh.factory<_i612.BriefcaseBloc>(
       () => _i612.BriefcaseBloc(
         coinRepository: gh<_i404.CoinRepositoryI>(),
@@ -82,6 +79,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i287.CoinBloc>(
       () => _i287.CoinBloc(
+        coinRepository: gh<_i404.CoinRepositoryI>(),
+        registrationRepository: gh<_i678.RegistrationRepositoryI>(),
+      ),
+    );
+    gh.factory<_i838.HomeBloc>(
+      () => _i838.HomeBloc(
         coinRepository: gh<_i404.CoinRepositoryI>(),
         registrationRepository: gh<_i678.RegistrationRepositoryI>(),
       ),

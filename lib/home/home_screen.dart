@@ -42,18 +42,29 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: CustomAppBar(
         text: "Crypto Assistant",
         leadingIcon: false,
-        action: InkWell(
-          onTap: () {
-            showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              builder: (context) {
-                return LanguageBottomSheet();
-              },
-            );
-          },
-          child: Image.asset(AppImages.english, width: 24, height: 24),
-        ),
+        action: [
+          InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (context) {
+                  return LanguageBottomSheet();
+                },
+              );
+            },
+            child: Image.asset(AppImages.english, width: 24, height: 24),
+          ),
+          InkWell(
+            onTap: () => _bloc.add(LogOutEvent()),
+            child: Image.asset(
+              AppImages.exit,
+              width: 24,
+              height: 24,
+              color: AppColors.whiteColor,
+            ),
+          ),
+        ],
       ),
       body: BlocBuilder<HomeBloc, HomeState>(
         bloc: _bloc,

@@ -2,8 +2,6 @@ import 'package:equatable/equatable.dart';
 
 import '../data/models/coin_model.dart';
 
-
-
 class HomeState extends Equatable {
   const HomeState({
     this.items = const [],

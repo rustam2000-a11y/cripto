@@ -9,9 +9,11 @@ class LoadingEvent extends HomeEvent {
 
   final bool isLoading;
 }
+
 class LoadItemsEvent extends HomeEvent {
-  LoadItemsEvent({ required this.items});
-  final List <CoinModel> items;
+  LoadItemsEvent({required this.items});
+
+  final List<CoinModel> items;
 }
 
 class SearchQueryChangedEvent extends HomeEvent {
@@ -22,5 +24,10 @@ class SearchQueryChangedEvent extends HomeEvent {
 
 class ChangedFilteredItemsEvent extends HomeEvent {
   const ChangedFilteredItemsEvent({required this.filteredItems});
+
   final List<CoinModel> filteredItems;
+}
+
+class LogOutEvent extends HomeEvent {
+  const LogOutEvent();
 }
