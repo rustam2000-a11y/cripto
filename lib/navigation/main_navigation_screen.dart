@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../assistant/assistant_screen.dart';
 import '../briefcase/briefcase_screen.dart';
 import '../home/home_screen.dart';
+import '../insight/insight_screen.dart';
 import 'app_page.dart';
 import 'custom_bottom_nav_bar.dart';
 
@@ -19,6 +20,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   static const _screens = {
     AppPage.home: HomeScreen(),
     AppPage.assistant: AssistantScreen(),
+    AppPage.insight: InsightScreen(),
     AppPage.briefcase: BriefcaseScreen(),
   };
 

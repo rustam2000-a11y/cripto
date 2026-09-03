@@ -25,6 +25,10 @@ import 'package:crypto_assistant/home/language/data/api/language_api.dart'
 import 'package:crypto_assistant/home/language/data/repository/language_repository.dart'
     as _i576;
 import 'package:crypto_assistant/injection.dart' as _i437;
+import 'package:crypto_assistant/insight/bloc/insight_bloc.dart' as _i157;
+import 'package:crypto_assistant/insight/data/api/gemini_api.dart' as _i251;
+import 'package:crypto_assistant/insight/data/repository/insight_repository.dart'
+    as _i369;
 import 'package:crypto_assistant/registration/bloc/login_bloc.dart' as _i471;
 import 'package:crypto_assistant/registration/bloc/registration_bloc.dart'
     as _i688;
@@ -49,6 +53,7 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.singleton<_i292.ApiClient>(() => _i292.ApiClient());
+    gh.factory<_i251.GeminiApiI>(() => _i251.GeminiApi());
     gh.factory<_i997.CoinApI>(() => _i997.CoinApi(gh<_i292.ApiClient>()));
     gh.lazySingleton<_i404.CoinRepositoryI>(
       () => _i404.CoinRepository(api: gh<_i997.CoinApI>()),
@@ -91,6 +96,16 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i576.LanguageRepositoryI>(
       () => _i576.LanguageRepository(api: gh<_i234.LanguageApiI>()),
+    );
+    gh.lazySingleton<_i369.InsightRepositoryI>(
+      () => _i369.InsightRepository(
+        coinRepository: gh<_i404.CoinRepositoryI>(),
+        geminiApi: gh<_i251.GeminiApiI>(),
+      ),
+    );
+    gh.factory<_i157.InsightBloc>(
+      () =>
+          _i157.InsightBloc(insightRepository: gh<_i369.InsightRepositoryI>()),
     );
     gh.factory<_i861.LanguageBloc>(
       () => _i861.LanguageBloc(
