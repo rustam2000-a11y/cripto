@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../coin_card/coin_screen.dart';
+import '../generated/l10n.dart';
 import '../injection.dart';
 import '../widget/coin_card.dart';
 import 'home_widget/coin_search_field.dart';
@@ -78,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 return const Center(child: CircularProgressIndicator());
               }
               if (state.items.isEmpty) {
-                return const Center(child: Text('Нет данных'));
+                return Center(child: Text(S.of(context).noData));
               }
               return Column(
                 children: [

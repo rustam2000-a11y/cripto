@@ -7,6 +7,7 @@ import 'package:crypto_assistant/widget/custom_button.dart';
 import 'package:crypto_assistant/widget/custom_text.dart';
 import 'package:flutter/material.dart';
 
+import '../generated/l10n.dart';
 import '../injection.dart';
 import '../presentation/app_colors.dart';
 import '../widget/custom_divider.dart';
@@ -65,9 +66,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     LoginTitle(
-                      firstText: 'С возвращением',
-                      secondaryText:
-                          'Войдите, что бы продолжить следить за рынокм ',
+                      firstText: S.of(context).welcomeBack,
+                      secondaryText: S
+                          .of(context)
+                          .logInToKeepFollowingTheMarket,
                     ),
                     SizedBox(height: 30),
                     CustomTextField(
@@ -78,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 15),
                     CustomPasswordTextField(
-                      label: 'Password',
+                      label: S.of(context).password,
                       error: state.error,
                       onChanged: (value) =>
                           _bloc.add(LoginPasswordChanged(value)),
@@ -89,19 +91,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     else
                       CustomButton(
                         onTap: () => _bloc.add(const SignInWithEmailPressed()),
-                        name: 'Войти',
+                        name: S.of(context).logIn,
                       ),
-                    SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        CustomNewText(
-                          text: 'Забыл пароль?',
-                          color: AppColors.activeBorder,
-                          fontSize: 16,
-                        ),
-                      ],
-                    ),
+
                     SizedBox(height: 30),
                     CustomDivider(),
                     SizedBox(height: 30),
@@ -139,7 +131,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   spacing: 5,
                   children: [
-                    CustomNewText(text: 'Нет аккаунта?', fontSize: 18),
+                    CustomNewText(
+                      text: S.of(context).dontHaveAnAccount,
+                      fontSize: 18,
+                    ),
                     InkWell(
                       onTap: () async {
                         final registered = await Navigator.push<bool>(
@@ -153,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                       },
                       child: CustomNewText(
-                        text: 'Зарегестрироваться',
+                        text: S.of(context).signUp,
                         fontSize: 18,
                         color: AppColors.activeBorder,
                       ),

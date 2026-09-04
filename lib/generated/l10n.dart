@@ -74,6 +74,326 @@ class S {
       args: [],
     );
   }
+
+  /// `Max 24 hours`
+  String get max24Hours {
+    return Intl.message('Max 24 hours', name: 'max24Hours', desc: '', args: []);
+  }
+
+  /// `Current price position in daily range (0–100%):`
+  String get currentPricePositionInDailyRange0100 {
+    return Intl.message(
+      'Current price position in daily range (0–100%):',
+      name: 'currentPricePositionInDailyRange0100',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Capitalization`
+  String get capitalization {
+    return Intl.message(
+      'Capitalization',
+      name: 'capitalization',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Historical maximum`
+  String get historicalMaximum {
+    return Intl.message(
+      'Historical maximum',
+      name: 'historicalMaximum',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Historical minimum`
+  String get historicalMinimum {
+    return Intl.message(
+      'Historical minimum',
+      name: 'historicalMinimum',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove from favorites`
+  String get removeFromFavorites {
+    return Intl.message(
+      'Remove from favorites',
+      name: 'removeFromFavorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add to favorites`
+  String get addToFavorites {
+    return Intl.message(
+      'Add to favorites',
+      name: 'addToFavorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My briefcase`
+  String get myBriefcase {
+    return Intl.message(
+      'My briefcase',
+      name: 'myBriefcase',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Analytics`
+  String get analytics {
+    return Intl.message('Analytics', name: 'analytics', desc: '', args: []);
+  }
+
+  /// `Price is currently at the upper or lower boundary of the daily range`
+  String get priceIsCurrentlyAtTheUpperOrLowerBoundaryOf {
+    return Intl.message(
+      'Price is currently at the upper or lower boundary of the daily range',
+      name: 'priceIsCurrentlyAtTheUpperOrLowerBoundaryOf',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirmed anomaly`
+  String get confirmedAnomaly {
+    return Intl.message(
+      'Confirmed anomaly',
+      name: 'confirmedAnomaly',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Abnormally high trading activity relative to coin size`
+  String get abnormallyHighTradingActivityRelativeToCoinSize {
+    return Intl.message(
+      'Abnormally high trading activity relative to coin size',
+      name: 'abnormallyHighTradingActivityRelativeToCoinSize',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Near daily peak/bottom`
+  String get nearDailyPeakbottom {
+    return Intl.message(
+      'Near daily peak/bottom',
+      name: 'nearDailyPeakbottom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Market cap increase/outflow of more than 5% over 24 hours`
+  String get marketCapIncreaseoutflowOfMoreThan5Over24Hours {
+    return Intl.message(
+      'Market cap increase/outflow of more than 5% over 24 hours',
+      name: 'marketCapIncreaseoutflowOfMoreThan5Over24Hours',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Turnover`
+  String get turnover {
+    return Intl.message('Turnover', name: 'turnover', desc: '', args: []);
+  }
+
+  /// `Approaching its historical maximum/minimum`
+  String get approachingItsHistoricalMaximumminimum {
+    return Intl.message(
+      'Approaching its historical maximum/minimum',
+      name: 'approachingItsHistoricalMaximumminimum',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Historical maximum/minimum`
+  String get historicalMaximumminimum {
+    return Intl.message(
+      'Historical maximum/minimum',
+      name: 'historicalMaximumminimum',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price fluctuation range over the last 24 hours`
+  String get priceFluctuationRangeOverTheLast24Hours {
+    return Intl.message(
+      'Price fluctuation range over the last 24 hours',
+      name: 'priceFluctuationRangeOverTheLast24Hours',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price increase/decrease by more than 5%`
+  String get priceIncreasedecreaseByMoreThan5 {
+    return Intl.message(
+      'Price increase/decrease by more than 5%',
+      name: 'priceIncreasedecreaseByMoreThan5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `High volatility`
+  String get highVolatility {
+    return Intl.message(
+      'High volatility',
+      name: 'highVolatility',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price movement over the last 24 hours`
+  String get priceMovementOverTheLast24Hours {
+    return Intl.message(
+      'Price movement over the last 24 hours',
+      name: 'priceMovementOverTheLast24Hours',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price increase/decrease by more than 10%`
+  String get priceIncreasedecreaseByMoreThan10 {
+    return Intl.message(
+      'Price increase/decrease by more than 10%',
+      name: 'priceIncreasedecreaseByMoreThan10',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Abnormal price movement over the last 24 hours`
+  String get abnormalPriceMovementOverTheLast24Hours {
+    return Intl.message(
+      'Abnormal price movement over the last 24 hours',
+      name: 'abnormalPriceMovementOverTheLast24Hours',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Capital inflow`
+  String get capitalInflow {
+    return Intl.message(
+      'Capital inflow',
+      name: 'capitalInflow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome back`
+  String get welcomeBack {
+    return Intl.message(
+      'Welcome back',
+      name: 'welcomeBack',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log in to keep following the market`
+  String get logInToKeepFollowingTheMarket {
+    return Intl.message(
+      'Log in to keep following the market',
+      name: 'logInToKeepFollowingTheMarket',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message('Password', name: 'password', desc: '', args: []);
+  }
+
+  /// `Log in`
+  String get logIn {
+    return Intl.message('Log in', name: 'logIn', desc: '', args: []);
+  }
+
+  /// `Don't have an account?`
+  String get dontHaveAnAccount {
+    return Intl.message(
+      'Don\'t have an account?',
+      name: 'dontHaveAnAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign up`
+  String get signUp {
+    return Intl.message('Sign up', name: 'signUp', desc: '', args: []);
+  }
+
+  /// `Create an account`
+  String get createAnAccount {
+    return Intl.message(
+      'Create an account',
+      name: 'createAnAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `It takes less than a minute`
+  String get itTakesLessThanAMinute {
+    return Intl.message(
+      'It takes less than a minute',
+      name: 'itTakesLessThanAMinute',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get name {
+    return Intl.message('Name', name: 'name', desc: '', args: []);
+  }
+
+  /// `Already have an account?`
+  String get alreadyHaveAnAccount {
+    return Intl.message(
+      'Already have an account?',
+      name: 'alreadyHaveAnAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No data`
+  String get noData {
+    return Intl.message('No data', name: 'noData', desc: '', args: []);
+  }
+
+  /// `Search`
+  String get search {
+    return Intl.message('Search', name: 'search', desc: '', args: []);
+  }
+
+  /// `Apply`
+  String get apply {
+    return Intl.message('Apply', name: 'apply', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

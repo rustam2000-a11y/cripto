@@ -1,6 +1,7 @@
 import 'package:bloc_after_effect/bloc_after_effect.dart';
 import 'package:crypto_assistant/presentation/app_images.dart';
 import 'package:flutter/material.dart';
+import '../../generated/l10n.dart';
 import '../../injection.dart';
 import '../../widget/custom_button.dart';
 import 'bloc/language_bloc.dart';
@@ -45,29 +46,30 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
       },
       builder: (context, state) {
         return BottomSheetWrapper(
-            body: Column(
-              spacing: 8,
-              children: [
-                LanguageCardWidget(
-                  active: state.selectedLanguage == Language.english,
-                  icon: AppImages.englishFlag,
-                  language: Language.english.label,
-                  onTap: () =>
-                      _bloc.add(const SelectLanguageEvent(Language.english)),
-                ),
-                LanguageCardWidget(
-                  active: state.selectedLanguage == Language.russian,
-                  icon: AppImages.russianFlag,
-                  language: Language.russian.label,
-                  onTap: () =>
-                      _bloc.add(const SelectLanguageEvent(Language.russian)),
-                ),
-              ],
-            ),
-            bottomWidget: CustomButton(
-              onTap: () => _bloc.add(const ApplyLanguageEvent()),
-              name: 'apply',
-            ),);
+          body: Column(
+            spacing: 8,
+            children: [
+              LanguageCardWidget(
+                active: state.selectedLanguage == Language.english,
+                icon: AppImages.englishFlag,
+                language: Language.english.label,
+                onTap: () =>
+                    _bloc.add(const SelectLanguageEvent(Language.english)),
+              ),
+              LanguageCardWidget(
+                active: state.selectedLanguage == Language.russian,
+                icon: AppImages.russianFlag,
+                language: Language.russian.label,
+                onTap: () =>
+                    _bloc.add(const SelectLanguageEvent(Language.russian)),
+              ),
+            ],
+          ),
+          bottomWidget: CustomButton(
+            onTap: () => _bloc.add(const ApplyLanguageEvent()),
+            name: S.of(context).apply,
+          ),
+        );
       },
     );
   }

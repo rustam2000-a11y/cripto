@@ -1,7 +1,7 @@
 import 'package:bloc_after_effect/bloc_after_effect.dart';
 import 'package:crypto_assistant/registration/registration_widget/login_title.dart';
 import 'package:flutter/material.dart';
-
+import '../generated/l10n.dart';
 import '../home/home_widget/custom_app_bar.dart';
 import '../injection.dart';
 import '../presentation/app_colors.dart';
@@ -67,12 +67,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     LoginTitle(
-                      firstText: 'Создать акккаунт',
-                      secondaryText: 'Это займет меньше минуты',
+                      firstText: S.of(context).createAnAccount,
+                      secondaryText: S.of(context).itTakesLessThanAMinute,
                     ),
                     SizedBox(height: 30),
                     CustomTextField(
-                      label: 'Name',
+                      label: S.of(context).name,
                       onChanged: (value) =>
                           _bloc.add(RegisterNameChanged(value)),
                       hintText: 'Name',
@@ -88,7 +88,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                     SizedBox(height: 15),
                     CustomPasswordTextField(
-                      label: 'Password',
+                      label: S.of(context).password,
                       error: state.error,
                       onChanged: (value) =>
                           _bloc.add(RegisterPasswordChanged(value)),
@@ -100,19 +100,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       CustomButton(
                         onTap: () =>
                             _bloc.add(const RegisterWithEmailPressed()),
-                        name: 'Войти',
+                        name: S.of(context).signUp,
                       ),
-                    SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        CustomNewText(
-                          text: 'Забыл пароль?',
-                          color: AppColors.activeBorder,
-                          fontSize: 16,
-                        ),
-                      ],
-                    ),
                     SizedBox(height: 30),
                     CustomDivider(),
                     SizedBox(height: 30),
@@ -150,13 +139,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   spacing: 5,
                   children: [
-                    CustomNewText(text: 'Уже есть аккаунт?', fontSize: 18),
+                    CustomNewText(
+                      text: S.of(context).alreadyHaveAnAccount,
+                      fontSize: 18,
+                    ),
                     InkWell(
                       onTap: () {
                         Navigator.pop(context);
                       },
                       child: CustomNewText(
-                        text: 'Войти',
+                        text: S.of(context).logIn,
                         fontSize: 18,
                         color: AppColors.activeBorder,
                       ),

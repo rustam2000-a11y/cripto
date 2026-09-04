@@ -22,9 +22,95 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "abnormalPriceMovementOverTheLast24Hours":
+        MessageLookupByLibrary.simpleMessage(
+          "Abnormal price movement over the last 24 hours",
+        ),
+    "abnormallyHighTradingActivityRelativeToCoinSize":
+        MessageLookupByLibrary.simpleMessage(
+          "Abnormally high trading activity relative to coin size",
+        ),
+    "addToFavorites": MessageLookupByLibrary.simpleMessage("Add to favorites"),
+    "alreadyHaveAnAccount": MessageLookupByLibrary.simpleMessage(
+      "Already have an account?",
+    ),
+    "analytics": MessageLookupByLibrary.simpleMessage("Analytics"),
+    "apply": MessageLookupByLibrary.simpleMessage("Apply"),
+    "approachingItsHistoricalMaximumminimum":
+        MessageLookupByLibrary.simpleMessage(
+          "Approaching its historical maximum/minimum",
+        ),
+    "capitalInflow": MessageLookupByLibrary.simpleMessage("Capital inflow"),
+    "capitalization": MessageLookupByLibrary.simpleMessage("Capitalization"),
+    "confirmedAnomaly": MessageLookupByLibrary.simpleMessage(
+      "Confirmed anomaly",
+    ),
+    "createAnAccount": MessageLookupByLibrary.simpleMessage(
+      "Create an account",
+    ),
+    "currentPricePositionInDailyRange0100":
+        MessageLookupByLibrary.simpleMessage(
+          "Current price position in daily range (0–100%):",
+        ),
+    "dontHaveAnAccount": MessageLookupByLibrary.simpleMessage(
+      "Don\'t have an account?",
+    ),
+    "highVolatility": MessageLookupByLibrary.simpleMessage("High volatility"),
+    "historicalMaximum": MessageLookupByLibrary.simpleMessage(
+      "Historical maximum",
+    ),
+    "historicalMaximumminimum": MessageLookupByLibrary.simpleMessage(
+      "Historical maximum/minimum",
+    ),
+    "historicalMinimum": MessageLookupByLibrary.simpleMessage(
+      "Historical minimum",
+    ),
+    "itTakesLessThanAMinute": MessageLookupByLibrary.simpleMessage(
+      "It takes less than a minute",
+    ),
+    "logIn": MessageLookupByLibrary.simpleMessage("Log in"),
+    "logInToKeepFollowingTheMarket": MessageLookupByLibrary.simpleMessage(
+      "Log in to keep following the market",
+    ),
+    "marketCapIncreaseoutflowOfMoreThan5Over24Hours":
+        MessageLookupByLibrary.simpleMessage(
+          "Market cap increase/outflow of more than 5% over 24 hours",
+        ),
+    "max24Hours": MessageLookupByLibrary.simpleMessage("Max 24 hours"),
+    "myBriefcase": MessageLookupByLibrary.simpleMessage("My briefcase"),
+    "name": MessageLookupByLibrary.simpleMessage("Name"),
+    "nearDailyPeakbottom": MessageLookupByLibrary.simpleMessage(
+      "Near daily peak/bottom",
+    ),
+    "noData": MessageLookupByLibrary.simpleMessage("No data"),
     "noItemsAddedYet": MessageLookupByLibrary.simpleMessage(
       "No coins in portfolio",
     ),
+    "password": MessageLookupByLibrary.simpleMessage("Password"),
+    "priceFluctuationRangeOverTheLast24Hours":
+        MessageLookupByLibrary.simpleMessage(
+          "Price fluctuation range over the last 24 hours",
+        ),
+    "priceIncreasedecreaseByMoreThan10": MessageLookupByLibrary.simpleMessage(
+      "Price increase/decrease by more than 10%",
+    ),
+    "priceIncreasedecreaseByMoreThan5": MessageLookupByLibrary.simpleMessage(
+      "Price increase/decrease by more than 5%",
+    ),
+    "priceIsCurrentlyAtTheUpperOrLowerBoundaryOf":
+        MessageLookupByLibrary.simpleMessage(
+          "Price is currently at the upper or lower boundary of the daily range",
+        ),
+    "priceMovementOverTheLast24Hours": MessageLookupByLibrary.simpleMessage(
+      "Price movement over the last 24 hours",
+    ),
+    "removeFromFavorites": MessageLookupByLibrary.simpleMessage(
+      "Remove from favorites",
+    ),
+    "search": MessageLookupByLibrary.simpleMessage("Search"),
+    "signUp": MessageLookupByLibrary.simpleMessage("Sign up"),
+    "turnover": MessageLookupByLibrary.simpleMessage("Turnover"),
     "volume24Hours": MessageLookupByLibrary.simpleMessage("Volume 24 hours"),
+    "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome back"),
   };
 }

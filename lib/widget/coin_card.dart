@@ -74,8 +74,10 @@ class CoinCard extends StatelessWidget {
                 text: formatVolume(totalVolume),
               ),
               CoinStatColumn(
-                title: 'Макс 24 часа',
-                text: high24h != null ? '\$${high24h!.toStringAsFixed(2)}' : '—',
+                title: S.of(context).max24Hours,
+                text: high24h != null
+                    ? '\$${high24h!.toStringAsFixed(2)}'
+                    : '—',
               ),
             ],
           ),

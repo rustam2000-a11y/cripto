@@ -1,6 +1,6 @@
-import 'package:crypto_assistant/widget/custom_text.dart';
 import 'package:flutter/material.dart';
 
+import '../generated/l10n.dart';
 import '../home/home_widget/custom_app_bar.dart';
 import '../presentation/app_colors.dart';
 import '../presentation/app_images.dart';
@@ -11,18 +11,12 @@ import 'filter_detailing_screen.dart';
 class AssistantScreen extends StatelessWidget {
   const AssistantScreen({super.key});
 
-  void _openDetails(
-    BuildContext context,
-    FilterType type,
-    String description,
-  ) {
+  void _openDetails(BuildContext context, FilterType type, String description) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => FilterDetailingScreen(
-          type: type,
-          description: description,
-        ),
+        builder: (_) =>
+            FilterDetailingScreen(type: type, description: description),
       ),
     );
   }
@@ -31,40 +25,45 @@ class AssistantScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.haiti,
-      appBar: CustomAppBar(text: "Аналитика", leadingIcon: false),
+      appBar: CustomAppBar(text: S.of(context).analytics, leadingIcon: false),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
           child: Column(
             spacing: 13,
             children: [
-
               Row(
                 spacing: 12,
                 children: [
                   Expanded(
                     child: AssistantCardInformation(
                       icon: AppImages.siren,
-                      text: 'Аномальное движение цены за за последние 24 часа',
-                      description: 'Рост/подение  цены выше чем на 10%',
+                      text: S
+                          .of(context)
+                          .abnormalPriceMovementOverTheLast24Hours,
+                      description: S
+                          .of(context)
+                          .priceIncreasedecreaseByMoreThan10,
                       borderColor: AppColors.borderRed,
                       onTap: () => _openDetails(
                         context,
                         FilterType.abnormalMovement,
-                        'Рост/подение  цены выше чем на 10%',
+                        S.of(context).priceIncreasedecreaseByMoreThan10,
                       ),
                     ),
                   ),
                   Expanded(
                     child: AssistantCardInformation(
                       icon: AppImages.barChart,
-                      text: 'Движение цены за за последние 24 часа',
-                      description: 'Рост/подение  цены выше чем на 5%',
+                      text: S.of(context).priceMovementOverTheLast24Hours,
+                      description: S
+                          .of(context)
+                          .priceIncreasedecreaseByMoreThan5,
                       borderColor: AppColors.borderOrange,
                       onTap: () => _openDetails(
                         context,
                         FilterType.priceMovement,
-                        'Рост/подение  цены выше чем на 5%',
+                        S.of(context).priceIncreasedecreaseByMoreThan5,
                       ),
                     ),
                   ),
@@ -76,27 +75,30 @@ class AssistantScreen extends StatelessWidget {
                   Expanded(
                     child: AssistantCardInformation(
                       icon: AppImages.inflationRate,
-                      text: 'Большая волатильность',
-                      description: 'Размах колебаний цены за 24 часа',
+                      text: S.of(context).highVolatility,
+                      description: S
+                          .of(context)
+                          .priceFluctuationRangeOverTheLast24Hours,
                       borderColor: AppColors.borderGreen,
                       onTap: () => _openDetails(
                         context,
                         FilterType.highVolatility,
-                        'Размах колебаний цены за 24 часа',
+                        S.of(context).priceFluctuationRangeOverTheLast24Hours,
                       ),
                     ),
                   ),
                   Expanded(
                     child: AssistantCardInformation(
                       icon: AppImages.volatility,
-                      text: 'Исторический максимум/минимум',
-                      description:
-                          'Приближается к своему историческому максимуму/минимуму',
+                      text: S.of(context).historicalMaximumminimum,
+                      description: S
+                          .of(context)
+                          .approachingItsHistoricalMaximumminimum,
                       borderColor: AppColors.borderTeal,
                       onTap: () => _openDetails(
                         context,
                         FilterType.historicalExtremum,
-                        'Приближается к своему историческому максимуму/минимуму',
+                        S.of(context).approachingItsHistoricalMaximumminimum,
                       ),
                     ),
                   ),
@@ -108,27 +110,34 @@ class AssistantScreen extends StatelessWidget {
                   Expanded(
                     child: AssistantCardInformation(
                       icon: AppImages.inflation,
-                      text: 'Оборачиваемость',
-                      description: 'Аномально высокую активность торгов относительно размера монеты',
+                      text: S.of(context).turnover,
+                      description: S
+                          .of(context)
+                          .abnormallyHighTradingActivityRelativeToCoinSize,
                       borderColor: AppColors.amber,
                       onTap: () => _openDetails(
                         context,
                         FilterType.turnover,
-                        'Аномально высокую активность торгов относительно размера монеты',
+                        S
+                            .of(context)
+                            .abnormallyHighTradingActivityRelativeToCoinSize,
                       ),
                     ),
                   ),
                   Expanded(
                     child: AssistantCardInformation(
                       icon: AppImages.currency,
-                      text: 'Приток капитала',
-                      description:
-                      'Рост/отток капитализации выше 5% за 24 часа',
+                      text: S.of(context).capitalInflow,
+                      description: S
+                          .of(context)
+                          .marketCapIncreaseoutflowOfMoreThan5Over24Hours,
                       borderColor: AppColors.magenta,
                       onTap: () => _openDetails(
                         context,
                         FilterType.capitalInflow,
-                        'Рост/отток капитализации выше 5% за 24 часа',
+                        S
+                            .of(context)
+                            .marketCapIncreaseoutflowOfMoreThan5Over24Hours,
                       ),
                     ),
                   ),
@@ -140,33 +149,39 @@ class AssistantScreen extends StatelessWidget {
                   Expanded(
                     child: AssistantCardInformation(
                       icon: AppImages.analyze,
-                      text: 'У дневного пика/дна',
-                      description: 'аномально высокую активность торгов относительно размера монеты',
+                      text: S.of(context).nearDailyPeakbottom,
+                      description: S
+                          .of(context)
+                          .abnormallyHighTradingActivityRelativeToCoinSize,
                       borderColor: AppColors.borderGreen,
                       onTap: () => _openDetails(
                         context,
                         FilterType.dailyExtremum,
-                        'аномально высокую активность торгов относительно размера монеты',
+                        S
+                            .of(context)
+                            .abnormallyHighTradingActivityRelativeToCoinSize,
                       ),
                     ),
                   ),
                   Expanded(
                     child: AssistantCardInformation(
                       icon: AppImages.high,
-                      text: 'Подтверждённая аномалия',
-                      description:
-                      'Цена сейчас находится у верхней или нижней границы дневного диапазона',
+                      text: S.of(context).confirmedAnomaly,
+                      description: S
+                          .of(context)
+                          .priceIsCurrentlyAtTheUpperOrLowerBoundaryOf,
                       borderColor: AppColors.whiteColor,
                       onTap: () => _openDetails(
                         context,
                         FilterType.confirmedAnomaly,
-                        'Цена сейчас находится у верхней или нижней границы дневного диапазона',
+                        S
+                            .of(context)
+                            .priceIsCurrentlyAtTheUpperOrLowerBoundaryOf,
                       ),
                     ),
                   ),
                 ],
               ),
-
             ],
           ),
         ),

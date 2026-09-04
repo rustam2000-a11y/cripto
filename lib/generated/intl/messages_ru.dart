@@ -22,9 +22,95 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "abnormalPriceMovementOverTheLast24Hours":
+        MessageLookupByLibrary.simpleMessage(
+          "Аномальное движение цены за последние 24 часа",
+        ),
+    "abnormallyHighTradingActivityRelativeToCoinSize":
+        MessageLookupByLibrary.simpleMessage(
+          "Аномально высокая активность торгов относительно размера монеты",
+        ),
+    "addToFavorites": MessageLookupByLibrary.simpleMessage(
+      "Добавить в избранное",
+    ),
+    "alreadyHaveAnAccount": MessageLookupByLibrary.simpleMessage(
+      "Уже есть аккаунт?",
+    ),
+    "analytics": MessageLookupByLibrary.simpleMessage("Аналитика"),
+    "apply": MessageLookupByLibrary.simpleMessage("Применять"),
+    "approachingItsHistoricalMaximumminimum":
+        MessageLookupByLibrary.simpleMessage(
+          "Приближается к своему историческому максимуму/минимуму",
+        ),
+    "capitalInflow": MessageLookupByLibrary.simpleMessage("Приток капитала"),
+    "capitalization": MessageLookupByLibrary.simpleMessage("Капитализация"),
+    "confirmedAnomaly": MessageLookupByLibrary.simpleMessage(
+      "Подтверждённая аномалия",
+    ),
+    "createAnAccount": MessageLookupByLibrary.simpleMessage("Создать аккаунт"),
+    "currentPricePositionInDailyRange0100":
+        MessageLookupByLibrary.simpleMessage(
+          "Текущая позиция цены в дневном диапазоне (0–100%):",
+        ),
+    "dontHaveAnAccount": MessageLookupByLibrary.simpleMessage("Нет аккаунта?"),
+    "highVolatility": MessageLookupByLibrary.simpleMessage(
+      "Высокая волатильность",
+    ),
+    "historicalMaximum": MessageLookupByLibrary.simpleMessage(
+      "Исторический максимум",
+    ),
+    "historicalMaximumminimum": MessageLookupByLibrary.simpleMessage(
+      "Исторический максимум/минимум",
+    ),
+    "historicalMinimum": MessageLookupByLibrary.simpleMessage(
+      "Исторический минимум",
+    ),
+    "itTakesLessThanAMinute": MessageLookupByLibrary.simpleMessage(
+      "Это займёт меньше минуты",
+    ),
+    "logIn": MessageLookupByLibrary.simpleMessage("Войти"),
+    "logInToKeepFollowingTheMarket": MessageLookupByLibrary.simpleMessage(
+      "Войдите, чтобы продолжить следить за рынком",
+    ),
+    "marketCapIncreaseoutflowOfMoreThan5Over24Hours":
+        MessageLookupByLibrary.simpleMessage(
+          "Рост/отток капитализации более чем на 5% за 24 часа",
+        ),
+    "max24Hours": MessageLookupByLibrary.simpleMessage("Макс. за 24 часа"),
+    "myBriefcase": MessageLookupByLibrary.simpleMessage("Мой портфель"),
+    "name": MessageLookupByLibrary.simpleMessage("Имя"),
+    "nearDailyPeakbottom": MessageLookupByLibrary.simpleMessage(
+      "У дневного пика/дна",
+    ),
+    "noData": MessageLookupByLibrary.simpleMessage("Нет данных"),
     "noItemsAddedYet": MessageLookupByLibrary.simpleMessage(
       "Нет монет в портфеле",
     ),
-    "volume24Hours": MessageLookupByLibrary.simpleMessage("Объём 24 часа"),
+    "password": MessageLookupByLibrary.simpleMessage("Пароль"),
+    "priceFluctuationRangeOverTheLast24Hours":
+        MessageLookupByLibrary.simpleMessage(
+          "Размах колебаний цены за последние 24 часа",
+        ),
+    "priceIncreasedecreaseByMoreThan10": MessageLookupByLibrary.simpleMessage(
+      "Рост/падение цены более чем на 10%",
+    ),
+    "priceIncreasedecreaseByMoreThan5": MessageLookupByLibrary.simpleMessage(
+      "Рост/падение цены более чем на 5%",
+    ),
+    "priceIsCurrentlyAtTheUpperOrLowerBoundaryOf":
+        MessageLookupByLibrary.simpleMessage(
+          "Цена сейчас находится у верхней или нижней границы дневного диапазона",
+        ),
+    "priceMovementOverTheLast24Hours": MessageLookupByLibrary.simpleMessage(
+      "Движение цены за последние 24 часа",
+    ),
+    "removeFromFavorites": MessageLookupByLibrary.simpleMessage(
+      "Удалить из избранного",
+    ),
+    "search": MessageLookupByLibrary.simpleMessage("Поиск"),
+    "signUp": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
+    "turnover": MessageLookupByLibrary.simpleMessage("Оборачиваемость"),
+    "volume24Hours": MessageLookupByLibrary.simpleMessage("Объём за 24 часа"),
+    "welcomeBack": MessageLookupByLibrary.simpleMessage("С возвращением"),
   };
 }

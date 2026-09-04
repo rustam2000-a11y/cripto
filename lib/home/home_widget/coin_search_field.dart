@@ -1,6 +1,8 @@
 import 'package:crypto_assistant/presentation/app_colors.dart';
 import 'package:flutter/material.dart';
 
+import '../../generated/l10n.dart';
+
 class CoinSearchField extends StatelessWidget {
   const CoinSearchField({super.key, required this.onChanged});
 
@@ -21,7 +23,7 @@ class CoinSearchField extends StatelessWidget {
           ),
           cursorColor: const Color(0xFF8B5CF6),
           decoration: InputDecoration(
-            hintText: 'Search',
+            hintText: S.of(context).search,
             hintStyle: const TextStyle(
               color: Color(0xFF8E8CB0),
               fontSize: 16,
@@ -42,15 +44,10 @@ class CoinSearchField extends StatelessWidget {
 
             filled: true,
             fillColor: const Color(0xFF17143B),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 8,
-            ),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 8),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(26),
-              borderSide: const BorderSide(
-                color: Color(0xFF34306E),
-                width: 1,
-              ),
+              borderSide: const BorderSide(color: Color(0xFF34306E), width: 1),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(26),
@@ -61,7 +58,7 @@ class CoinSearchField extends StatelessWidget {
             ),
           ),
         ),
-      )
+      ),
     );
   }
 }

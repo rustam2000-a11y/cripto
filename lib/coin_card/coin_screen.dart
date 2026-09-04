@@ -2,6 +2,7 @@ import 'package:bloc_after_effect/bloc_after_effect.dart';
 import 'package:crypto_assistant/home/home_widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
+import '../generated/l10n.dart';
 import '../injection.dart';
 import '../presentation/app_colors.dart';
 import '../registration/login_screen.dart';
@@ -124,8 +125,9 @@ class _CoinScreenState extends State<CoinScreen> {
                           children: [
                             Expanded(
                               child: CoinStatCard(
-                                title:
-                                    'Позиция текущей цены в дневном диапазоне (0–100%):',
+                                title: S
+                                    .of(context)
+                                    .currentPricePositionInDailyRange0100,
                                 value: formatPriceRangePosition(
                                   coin.currentPrice,
                                   coin.low24h,
@@ -141,13 +143,13 @@ class _CoinScreenState extends State<CoinScreen> {
                           children: [
                             Expanded(
                               child: CoinStatCard(
-                                title: 'Объём 24 часа',
+                                title: S.of(context).volume24Hours,
                                 value: formatVolume(coin.totalVolume),
                               ),
                             ),
                             Expanded(
                               child: CoinStatCard(
-                                title: 'Капитализация',
+                                title: S.of(context).capitalization,
                                 value:
                                     '\$${formatVolume(coin.marketCap.toInt())}',
                               ),
@@ -160,7 +162,7 @@ class _CoinScreenState extends State<CoinScreen> {
                           children: [
                             Expanded(
                               child: CoinStatCard(
-                                title: 'Макс 24 часа',
+                                title: S.of(context).max24Hours,
                                 value: coin.high24h != null
                                     ? '\$${coin.high24h!.toStringAsFixed(2)}'
                                     : '—',
@@ -168,7 +170,7 @@ class _CoinScreenState extends State<CoinScreen> {
                             ),
                             Expanded(
                               child: CoinStatCard(
-                                title: 'Мин 24 часа',
+                                title: 'Min 24 hours',
                                 value: coin.low24h != null
                                     ? '\$${coin.low24h!.toStringAsFixed(2)}'
                                     : '—',
@@ -182,7 +184,7 @@ class _CoinScreenState extends State<CoinScreen> {
                           children: [
                             Expanded(
                               child: CoinStatCard(
-                                title: 'Исторический максимум',
+                                title: S.of(context).historicalMaximum,
                                 value: coin.ath != null
                                     ? '\$${coin.ath!.toStringAsFixed(2)}'
                                     : '—',
@@ -190,7 +192,7 @@ class _CoinScreenState extends State<CoinScreen> {
                             ),
                             Expanded(
                               child: CoinStatCard(
-                                title: 'Исторический минимум',
+                                title: S.of(context).historicalMinimum,
                                 value: coin.atl != null
                                     ? '\$${coin.atl!.toStringAsFixed(2)}'
                                     : '—',
@@ -204,8 +206,8 @@ class _CoinScreenState extends State<CoinScreen> {
                           top: false,
                           child: CustomButton(
                             name: state.isFavorite
-                                ? 'Убрать из избранного'
-                                : 'Добавить в избранное',
+                                ? S.of(context).removeFromFavorites
+                                : S.of(context).addToFavorites,
                             onTap: () =>
                                 _bloc.add(const ToggleBriefcaseEvent()),
                           ),

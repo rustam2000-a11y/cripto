@@ -1,4 +1,5 @@
 import 'package:bloc_after_effect/bloc_after_effect.dart';
+import 'package:crypto_assistant/widget/custom_text.dart';
 import 'package:flutter/material.dart';
 
 import '../coin_card/coin_screen.dart';
@@ -37,7 +38,7 @@ class _BriefcaseScreenState extends State<BriefcaseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.haiti,
-      appBar: const CustomAppBar(text: 'Мой портфель', leadingIcon: false),
+      appBar: CustomAppBar(text: S.of(context).myBriefcase, leadingIcon: false),
       body: BlocEffectBuilder<BriefcaseBloc, BriefcaseState, BriefcaseEffect>(
         bloc: _bloc,
         effectListener: (context, effect) {},
@@ -46,7 +47,9 @@ class _BriefcaseScreenState extends State<BriefcaseScreen> {
             return const Center(child: CircularProgressIndicator());
           }
           if (state.coins.isEmpty) {
-            return Center(child: Text(S.of(context).noItemsAddedYet));
+            return Center(
+              child: CustomNewText(text: S.of(context).noItemsAddedYet),
+            );
           }
           return ListView.separated(
             padding: const EdgeInsets.all(8),
