@@ -394,6 +394,31 @@ class S {
   String get apply {
     return Intl.message('Apply', name: 'apply', desc: '', args: []);
   }
+
+  /// `24 h`
+  String get Hour {
+    return Intl.message('24 h', name: 'Hour', desc: '', args: []);
+  }
+
+  /// `Week`
+  String get week {
+    return Intl.message('Week', name: 'week', desc: '', args: []);
+  }
+
+  /// `Year`
+  String get year {
+    return Intl.message('Year', name: 'year', desc: '', args: []);
+  }
+
+  /// `No data for graph`
+  String get noDataForGraph {
+    return Intl.message(
+      'No data for graph',
+      name: 'noDataForGraph',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

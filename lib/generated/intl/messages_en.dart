@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "Hour": MessageLookupByLibrary.simpleMessage("24 h"),
     "abnormalPriceMovementOverTheLast24Hours":
         MessageLookupByLibrary.simpleMessage(
           "Abnormal price movement over the last 24 hours",
@@ -83,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Near daily peak/bottom",
     ),
     "noData": MessageLookupByLibrary.simpleMessage("No data"),
+    "noDataForGraph": MessageLookupByLibrary.simpleMessage("No data for graph"),
     "noItemsAddedYet": MessageLookupByLibrary.simpleMessage(
       "No coins in portfolio",
     ),
@@ -111,6 +113,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "signUp": MessageLookupByLibrary.simpleMessage("Sign up"),
     "turnover": MessageLookupByLibrary.simpleMessage("Turnover"),
     "volume24Hours": MessageLookupByLibrary.simpleMessage("Volume 24 hours"),
+    "week": MessageLookupByLibrary.simpleMessage("Week"),
     "welcomeBack": MessageLookupByLibrary.simpleMessage("Welcome back"),
+    "year": MessageLookupByLibrary.simpleMessage("Year"),
   };
 }

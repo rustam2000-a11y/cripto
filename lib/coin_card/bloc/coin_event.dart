@@ -1,3 +1,4 @@
+import '../../home/data/models/chart_period.dart';
 import '../../home/data/models/coin_model.dart';
 import '../../home/data/models/price_point.dart';
 
@@ -43,4 +44,16 @@ class BriefcaseStatusLoadedEvent extends CoinEvent {
   const BriefcaseStatusLoadedEvent({required this.isFavorite});
 
   final bool isFavorite;
+}
+
+class ChangeChartPeriodEvent extends CoinEvent {
+  const ChangeChartPeriodEvent(this.period);
+
+  final ChartPeriod period;
+}
+
+class ChartPeriodChangedEvent extends CoinEvent {
+  const ChartPeriodChangedEvent(this.period);
+
+  final ChartPeriod period;
 }

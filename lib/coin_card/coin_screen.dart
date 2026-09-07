@@ -116,6 +116,10 @@ class _CoinScreenState extends State<CoinScreen> {
                             CoinPriceChart(
                               points: state.chartPoints,
                               isLoading: state.isChartLoading,
+                              selectedPeriod: state.chartPeriod,
+                              onPeriodChanged: (period) => _bloc.add(
+                                ChangeChartPeriodEvent(period),
+                              ),
                             ),
                           ],
                         ),

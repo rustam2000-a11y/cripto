@@ -41,5 +41,9 @@
   "alreadyHaveAnAccount": "Already have an account?",
   "noData": "No data",
   "search": "Search",
-  "apply": "Apply"
+  "apply": "Apply",
+  "Hour": "24 h",
+  "week": "Week",
+  "year": "Year",
+  "noDataForGraph": "No data for graph"
 }

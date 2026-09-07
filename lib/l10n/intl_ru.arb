@@ -38,5 +38,9 @@
   "alreadyHaveAnAccount": "Уже есть аккаунт?",
   "noData": "Нет данных",
   "search": "Поиск",
-  "apply": "Применять"
+  "apply": "Применять",
+  "Hour": "24ч",
+  "week": "Неделя",
+  "year": "Год",
+  "noDataForGraph": "No data for graph"
 }

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc_after_effect/bloc_after_effect.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../home/data/models/chart_period.dart';
 import '../../home/data/models/coin_model.dart';
 import '../../home/data/models/price_point.dart';
 import '../../home/data/repository/coint_rpository.dart';
@@ -20,8 +21,9 @@ class CoinBloc extends EffectBloc<CoinEvent, CoinState, CoinEffect> {
        _registrationRepository = registrationRepository,
        super(const CoinState()) {
     on<LoadCoinDetailsEvent>((event, emit) {
+      _coinId = event.coinId;
       _watchCoin(event.coinId);
-      _watchChart(event.coinId);
+      _watchChart(event.coinId, state.chartPeriod);
       _loadBriefcaseStatus(event.coinId);
     });
     on<CoinLoadingEvent>((event, emit) {
@@ -42,10 +44,17 @@ class CoinBloc extends EffectBloc<CoinEvent, CoinState, CoinEffect> {
     on<BriefcaseStatusLoadedEvent>((event, emit) {
       emit(state.copyWith(isFavorite: event.isFavorite));
     });
+    on<ChangeChartPeriodEvent>((event, emit) {
+      _changeChartPeriod(event.period);
+    });
+    on<ChartPeriodChangedEvent>((event, emit) {
+      emit(state.copyWith(chartPeriod: event.period));
+    });
   }
 
   final CoinRepositoryI _coinRepository;
   final RegistrationRepositoryI _registrationRepository;
+  String? _coinId;
   StreamSubscription<CoinModel>? _coinSubscription;
   StreamSubscription<List<PricePoint>>? _chartSubscription;
 
@@ -57,12 +66,21 @@ class CoinBloc extends EffectBloc<CoinEvent, CoinState, CoinEffect> {
     });
   }
 
-  void _watchChart(String coinId) {
+  void _watchChart(String coinId, ChartPeriod period) {
     add(const ChartLoadingEvent(isLoading: true));
     _chartSubscription?.cancel();
-    _chartSubscription = _coinRepository.watchMarketChart(coinId).listen((points) {
-      add(ChartLoadedEvent(points: points));
-    });
+    _chartSubscription = _coinRepository
+        .watchMarketChart(coinId, days: period.days)
+        .listen((points) {
+          add(ChartLoadedEvent(points: points));
+        });
+  }
+
+  void _changeChartPeriod(ChartPeriod period) {
+    if (period == state.chartPeriod) return;
+    add(ChartPeriodChangedEvent(period));
+    final coinId = _coinId;
+    if (coinId != null) _watchChart(coinId, period);
   }
 
   Future<void> _loadBriefcaseStatus(String coinId) async {
