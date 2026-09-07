@@ -14,7 +14,7 @@ class AppImages {
   static const google ='assets/images/google.png';
   static const apple = 'assets/images/apple.png';
   static const briefcase = 'assets/images/briefcase.png';
-  static const english = 'assets/images/english.png';
+  static const languages = 'assets/images/languages.png';
   static const englishFlag = 'assets/images/english_flag.png';
   static const russianFlag = 'assets/images/russian_flag.png';
   static const exit = 'assets/images/exit.png';

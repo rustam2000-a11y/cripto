@@ -43,5 +43,6 @@
   "week": "Неделя",
   "year": "Год",
   "noDataForGraph": "No data for graph",
-  "detailing": "Детализация"
+  "detailing": "Детализация",
+  "language": "Язык"
 }

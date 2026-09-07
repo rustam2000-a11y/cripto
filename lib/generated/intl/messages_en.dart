@@ -70,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "itTakesLessThanAMinute": MessageLookupByLibrary.simpleMessage(
       "It takes less than a minute",
     ),
+    "language": MessageLookupByLibrary.simpleMessage("Language"),
     "logIn": MessageLookupByLibrary.simpleMessage("Log in"),
     "logInToKeepFollowingTheMarket": MessageLookupByLibrary.simpleMessage(
       "Log in to keep following the market",

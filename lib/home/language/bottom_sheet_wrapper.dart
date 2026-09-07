@@ -2,6 +2,8 @@ import 'package:crypto_assistant/presentation/app_colors.dart';
 import 'package:crypto_assistant/widget/custom_text.dart';
 import 'package:flutter/material.dart';
 
+import '../../generated/l10n.dart';
+
 
 
 class BottomSheetWrapper extends StatelessWidget {
@@ -46,18 +48,22 @@ class BottomSheetWrapper extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomNewText(
-                      text: 'Language',
+                      text: S.of(context).language,
                       fontSize: 20,
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: AppColors.closeButtonBackground,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.close,
-                        color: AppColors.closeIcon,
+                    Material(
+                      shape: const CircleBorder(),
+                      color: AppColors.closeButtonBackground,
+                      child: InkWell(
+                        onTap: ()=> Navigator.pop(context),
+                        customBorder: const CircleBorder(),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Icon(
+                            Icons.close,
+                            color: AppColors.closeIcon,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -67,7 +73,6 @@ class BottomSheetWrapper extends StatelessWidget {
               ],
             ),
           ),
-
           SafeArea(
             child: bottomWidget??SizedBox(),
           ),

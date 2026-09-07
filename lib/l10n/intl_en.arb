@@ -46,5 +46,6 @@
   "week": "Week",
   "year": "Year",
   "noDataForGraph": "No data for graph",
-  "detailing": "Detailing"
+  "detailing": "Detailing",
+  "language": "Language"
 }

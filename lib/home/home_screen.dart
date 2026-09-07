@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   );
                 },
-                child: Image.asset(AppImages.english, width: 24, height: 24),
+                child: Image.asset(AppImages.languages, width: 24, height: 24,color: AppColors.whiteColor,),
               ),
               if (state.isLoggedIn)
                 InkWell(

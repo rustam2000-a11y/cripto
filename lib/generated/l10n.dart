@@ -424,6 +424,11 @@ class S {
   String get detailing {
     return Intl.message('Detailing', name: 'detailing', desc: '', args: []);
   }
+
+  /// `Language`
+  String get language {
+    return Intl.message('Language', name: 'language', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
