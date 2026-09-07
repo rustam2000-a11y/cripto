@@ -15,6 +15,9 @@ final VoidCallback onTap;
       child: InkWell(
         onTap: onTap,
         child: Container(
+          constraints: BoxConstraints(
+            maxWidth: 400,
+          ),
           padding: EdgeInsets.symmetric(vertical: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

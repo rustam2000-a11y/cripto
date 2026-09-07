@@ -13,7 +13,7 @@ class CoinSearchField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
       child: SizedBox(
-        height: 44,
+        height: 40,
         child: TextField(
           onChanged: onChanged,
           style: const TextStyle(
@@ -25,7 +25,7 @@ class CoinSearchField extends StatelessWidget {
           decoration: InputDecoration(
             hintText: S.of(context).search,
             hintStyle: const TextStyle(
-              color: Color(0xFF8E8CB0),
+              color: AppColors.textSecondary,
               fontSize: 16,
               fontWeight: FontWeight.w400,
             ),
@@ -33,24 +33,20 @@ class CoinSearchField extends StatelessWidget {
               padding: EdgeInsets.only(left: 16, right: 12),
               child: Icon(
                 Icons.search_rounded,
-                color: Color(0xFFC4C4D8),
+                color: AppColors.textSecondary,
                 size: 24,
               ),
             ),
-            prefixIconConstraints: const BoxConstraints(
-              minWidth: 52,
-              minHeight: 52,
-            ),
 
             filled: true,
-            fillColor: const Color(0xFF17143B),
+            fillColor: AppColors.deepIndigo,
             contentPadding: const EdgeInsets.symmetric(horizontal: 8),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(26),
-              borderSide: const BorderSide(color: Color(0xFF34306E), width: 1),
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(color: AppColors.indigo),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(26),
+              borderRadius: BorderRadius.circular(16),
               borderSide: const BorderSide(
                 color: AppColors.jacarta,
                 width: 1.2,

@@ -33,5 +33,8 @@ class AppColors {
   static const selectedItemBackground = Color(0xFF1B1F3F);
   static const closeButtonBackground = Color(0xFF1E2144);
   static const closeIcon = Color(0xFF9295B8);
+  static const deepIndigo = Color(0xFF17143B);
+  static const indigo = Color(0xFF34306E);
+
 
 }
