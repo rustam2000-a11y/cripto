@@ -32,10 +32,20 @@ class CoinRepository extends CoinRepositoryI {
           (_) => Stream.fromFuture(_api.fetchMarketChart(id, days: days)),
         );
   }
+
+  @override
+  Future<void> addCoinToBriefcase(String coinId) =>
+      _api.addCoinToBriefcase(coinId);
+
+  @override
+  Future<void> removeCoinFromBriefcase(String coinId) =>
+      _api.removeCoinFromBriefcase(coinId);
 }
 
 abstract class CoinRepositoryI {
   Stream<List<CoinModel>> watchCoins();
   Stream<CoinModel> watchCoin(String id);
   Stream<List<PricePoint>> watchMarketChart(String id, {int days = 7});
+  Future<void> addCoinToBriefcase(String coinId);
+  Future<void> removeCoinFromBriefcase(String coinId);
 }

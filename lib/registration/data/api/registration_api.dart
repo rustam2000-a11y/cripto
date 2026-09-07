@@ -167,26 +167,6 @@ class RegistrationApi extends RegistrationApiI {
   }
 
   @override
-  Future<void> addCoinToBriefcase(String coinId) async {
-    final uid = _auth.currentUser?.uid;
-    if (uid == null) return;
-
-    await _firestore.collection('user').doc(uid).set({
-      'coinIds': FieldValue.arrayUnion([coinId]),
-    }, SetOptions(merge: true));
-  }
-
-  @override
-  Future<void> removeCoinFromBriefcase(String coinId) async {
-    final uid = _auth.currentUser?.uid;
-    if (uid == null) return;
-
-    await _firestore.collection('user').doc(uid).set({
-      'coinIds': FieldValue.arrayRemove([coinId]),
-    }, SetOptions(merge: true));
-  }
-
-  @override
   Future<UserModel?> getCurrentUserProfile() async {
     final uid = _auth.currentUser?.uid;
     if (uid == null) return null;
@@ -234,10 +214,6 @@ abstract class RegistrationApiI {
   Future<void> sendPasswordResetEmail(String email);
 
   Future<void> logout();
-
-  Future<void> addCoinToBriefcase(String coinId);
-
-  Future<void> removeCoinFromBriefcase(String coinId);
 
   Future<UserModel?> getCurrentUserProfile();
 

@@ -48,14 +48,6 @@ class RegistrationRepository extends RegistrationRepositoryI {
   Future<void> logout() => _api.logout();
 
   @override
-  Future<void> addCoinToBriefcase(String coinId) =>
-      _api.addCoinToBriefcase(coinId);
-
-  @override
-  Future<void> removeCoinFromBriefcase(String coinId) =>
-      _api.removeCoinFromBriefcase(coinId);
-
-  @override
   Future<UserModel?> getCurrentUserProfile() => _api.getCurrentUserProfile();
 
   @override
@@ -86,10 +78,6 @@ abstract class RegistrationRepositoryI {
   Future<void> sendPasswordResetEmail(String email);
 
   Future<void> logout();
-
-  Future<void> addCoinToBriefcase(String coinId);
-
-  Future<void> removeCoinFromBriefcase(String coinId);
 
   Future<UserModel?> getCurrentUserProfile();
 

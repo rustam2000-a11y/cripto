@@ -84,12 +84,12 @@ class CoinBloc extends EffectBloc<CoinEvent, CoinState, CoinEffect> {
     if (coinId == null) return;
 
     if (state.isFavorite) {
-      await _registrationRepository.removeCoinFromBriefcase(coinId);
+      await _coinRepository.removeCoinFromBriefcase(coinId);
       add(const BriefcaseStatusLoadedEvent(isFavorite: false));
       return;
     }
 
-    await _registrationRepository.addCoinToBriefcase(coinId);
+    await _coinRepository.addCoinToBriefcase(coinId);
     add(const BriefcaseStatusLoadedEvent(isFavorite: true));
 
   }
