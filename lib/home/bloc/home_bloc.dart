@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import '../../registration/data/repository/registration_repository.dart';
 import '../data/models/coin_model.dart';
 import '../data/repository/coint_rpository.dart';
+import '../domain/usecase/search_coins_usecase.dart';
 import 'home_effect.dart';
 import 'home_event.dart';
 import 'home_state.dart';
@@ -15,8 +16,10 @@ class HomeBloc extends EffectBloc<HomeEvent, HomeState, HomeEffect> {
   HomeBloc({
     required CoinRepositoryI coinRepository,
     required RegistrationRepositoryI registrationRepository,
+    required SearchCoinsUseCase searchCoinsUseCase,
   }) : _coinRepository = coinRepository,
        _registrationRepository = registrationRepository,
+       _searchCoinsUseCase = searchCoinsUseCase,
        super(const HomeState()) {
     on<LoadingEvent>((event, emit) {
       emit(state.copyWith(isLoading: event.isLoading));
@@ -47,6 +50,7 @@ class HomeBloc extends EffectBloc<HomeEvent, HomeState, HomeEffect> {
 
   final CoinRepositoryI _coinRepository;
   final RegistrationRepositoryI _registrationRepository;
+  final SearchCoinsUseCase _searchCoinsUseCase;
   StreamSubscription<List<CoinModel>>? _coinsSubscription;
   StreamSubscription<bool>? _authSubscription;
 
@@ -63,16 +67,8 @@ class HomeBloc extends EffectBloc<HomeEvent, HomeState, HomeEffect> {
   }
 
   void _searchCoins(String query) {
-    if (query.isEmpty) state.items;
-    final lowerQuery = query.toLowerCase();
-    final filter = state.items
-        .where(
-          (coin) =>
-              coin.name.toLowerCase().contains(lowerQuery) ||
-              coin.symbol.toLowerCase().contains(lowerQuery),
-        )
-        .toList();
-    add(ChangedFilteredItemsEvent(filteredItems: filter));
+    final filtered = _searchCoinsUseCase.call(state.items, query);
+    add(ChangedFilteredItemsEvent(filteredItems: filtered));
   }
 
   void _logOut() async {

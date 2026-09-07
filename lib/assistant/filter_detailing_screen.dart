@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../coin_card/coin_screen.dart';
+import '../generated/l10n.dart';
 import '../home/home_widget/custom_app_bar.dart';
 import '../injection.dart';
 import '../presentation/app_colors.dart';
@@ -45,7 +46,7 @@ class _FilterDetailingScreenState extends State<FilterDetailingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.haiti,
-      appBar: CustomAppBar(text: 'Детализация'),
+      appBar: CustomAppBar(text: S.of(context).detailing),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
@@ -68,7 +69,7 @@ class _FilterDetailingScreenState extends State<FilterDetailingScreen> {
                     return const Center(child: CircularProgressIndicator());
                   }
                   if (state.coins.isEmpty) {
-                    return const Center(child: Text('Нет данных'));
+                    return  Center(child: Text(S.of(context).noData));
                   }
                   return ListView.separated(
                     padding: const EdgeInsets.all(8),

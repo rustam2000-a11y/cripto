@@ -50,18 +50,20 @@ class _NavBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 14),
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
+    return
+
+      InkWell(
         onTap: onTap,
-        child: Image.asset(
-          page.icon,
-          width: 20,
-          height: 20,
-          color: isSelected ? AppColors.whiteColor : AppColors.blueBell,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 14),
+          color: Colors.transparent,
+          child: Image.asset(
+            page.icon,
+            width: 20,
+            height: 20,
+            color: isSelected ? AppColors.whiteColor : AppColors.blueBell,
+          ),
         ),
-      ),
-    );
+      );
   }
 }

@@ -53,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Текущая позиция цены в дневном диапазоне (0–100%):",
         ),
+    "detailing": MessageLookupByLibrary.simpleMessage("Детализация"),
     "dontHaveAnAccount": MessageLookupByLibrary.simpleMessage("Нет аккаунта?"),
     "highVolatility": MessageLookupByLibrary.simpleMessage(
       "Высокая волатильность",
