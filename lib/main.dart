@@ -1,10 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
+import 'core/ui/ui_provider.dart';
 import 'home/language/data/models/language.dart';
 import 'home/language/data/repository/language_repository.dart';
 import 'injection.dart';
@@ -12,6 +15,10 @@ import 'navigation/main_navigation_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await configureDependencies();
   try {
     await Firebase.initializeApp(
@@ -20,7 +27,9 @@ void main() async {
   } catch (e) {
     debugPrint('Firebase init error: $e');
   }
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(create: (_) => UiProvider(), child: const MyApp()),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -70,6 +79,14 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      builder: (context, child) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (context.mounted) {
+            context.read<UiProvider>().updateLayout(context);
+          }
+        });
+        return child!;
+      },
       home: const MainNavigationScreen(),
     );
   }

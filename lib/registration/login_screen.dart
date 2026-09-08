@@ -6,7 +6,10 @@ import 'package:crypto_assistant/registration/registration_widget/login_title.da
 import 'package:crypto_assistant/widget/custom_button.dart';
 import 'package:crypto_assistant/widget/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../core/ui/device_layout.dart';
+import '../core/ui/ui_provider.dart';
 import '../generated/l10n.dart';
 import '../injection.dart';
 import '../presentation/app_colors.dart';
@@ -53,113 +56,124 @@ class _LoginScreenState extends State<LoginScreen> {
             ).showSnackBar(SnackBar(content: Text(message)));
         }
       },
-      builder: (context, state) => Scaffold(
-        appBar: CustomAppBar(text: ''),
-        backgroundColor: AppColors.haiti,
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: SafeArea(
-            child: Column(
+      builder: (context, state) {
+        final isTablet = context.watch<UiProvider>().deviceLayout.isTabletMode;
+
+        final content = Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    LoginTitle(
-                      firstText: S.of(context).welcomeBack,
-                      secondaryText: S
-                          .of(context)
-                          .logInToKeepFollowingTheMarket,
-                    ),
-                    SizedBox(height: 30),
-                    CustomTextField(
-                      label: 'Email',
-                      onChanged: (value) => _bloc.add(LoginEmailChanged(value)),
-                      hintText: 'Email',
-                      leftIcon: Icons.email_outlined,
-                    ),
-                    SizedBox(height: 15),
-                    CustomPasswordTextField(
-                      label: S.of(context).password,
-                      error: state.error,
-                      onChanged: (value) =>
-                          _bloc.add(LoginPasswordChanged(value)),
-                    ),
-                    SizedBox(height: 30),
-                    if (state.isLoading)
-                      const Center(child: CircularProgressIndicator())
-                    else
-                      CustomButton(
-                        onTap: () => _bloc.add(const SignInWithEmailPressed()),
-                        name: S.of(context).logIn,
-                      ),
-
-                    SizedBox(height: 30),
-                    CustomDivider(),
-                    SizedBox(height: 30),
-                    Row(
-                      spacing: 12,
-                      children: [
-                        Expanded(
-                          child: CustomButton(
-                            onTap: () {
-                              if (!_bloc.state.isLoading) {
-                                _bloc.add(const SignInWithGooglePressed());
-                              }
-                            },
-                            name: 'Google',
-                            icon: AppImages.google,
-                          ),
-                        ),
-                        Expanded(
-                          child: CustomButton(
-                            onTap: () {
-                              if (!_bloc.state.isLoading) {
-                                _bloc.add(const SignInWithApplePressed());
-                              }
-                            },
-                            name: 'Apple',
-                            icon: AppImages.apple,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                LoginTitle(
+                  firstText: S.of(context).welcomeBack,
+                  secondaryText: S.of(context).logInToKeepFollowingTheMarket,
                 ),
-                Spacer(),
+                SizedBox(height: 30),
+                CustomTextField(
+                  label: 'Email',
+                  onChanged: (value) => _bloc.add(LoginEmailChanged(value)),
+                  hintText: 'Email',
+                  leftIcon: Icons.email_outlined,
+                ),
+                SizedBox(height: 15),
+                CustomPasswordTextField(
+                  label: S.of(context).password,
+                  error: state.error,
+                  onChanged: (value) =>
+                      _bloc.add(LoginPasswordChanged(value)),
+                ),
+                SizedBox(height: 30),
+                if (state.isLoading)
+                  const Center(child: CircularProgressIndicator())
+                else
+                  CustomButton(
+                    onTap: () => _bloc.add(const SignInWithEmailPressed()),
+                    name: S.of(context).logIn,
+                  ),
+
+                SizedBox(height: 30),
+                CustomDivider(),
+                SizedBox(height: 30),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  spacing: 5,
+                  spacing: 12,
                   children: [
-                    CustomNewText(
-                      text: S.of(context).dontHaveAnAccount,
-                      fontSize: 18,
+                    Expanded(
+                      child: CustomButton(
+                        onTap: () {
+                          if (!_bloc.state.isLoading) {
+                            _bloc.add(const SignInWithGooglePressed());
+                          }
+                        },
+                        name: 'Google',
+                        icon: AppImages.google,
+                      ),
                     ),
-                    InkWell(
-                      onTap: () async {
-                        final registered = await Navigator.push<bool>(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RegistrationScreen(),
-                          ),
-                        );
-                        if (registered == true && context.mounted) {
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: CustomNewText(
-                        text: S.of(context).signUp,
-                        fontSize: 18,
-                        color: AppColors.activeBorder,
+                    Expanded(
+                      child: CustomButton(
+                        onTap: () {
+                          if (!_bloc.state.isLoading) {
+                            _bloc.add(const SignInWithApplePressed());
+                          }
+                        },
+                        name: 'Apple',
+                        icon: AppImages.apple,
                       ),
                     ),
                   ],
                 ),
               ],
             ),
+            Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 5,
+              children: [
+                CustomNewText(
+                  text: S.of(context).dontHaveAnAccount,
+                  fontSize: 18,
+                ),
+                InkWell(
+                  onTap: () async {
+                    final registered = await Navigator.push<bool>(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RegistrationScreen(),
+                      ),
+                    );
+                    if (registered == true && context.mounted) {
+                      Navigator.pop(context);
+                    }
+                  },
+                  child: CustomNewText(
+                    text: S.of(context).signUp,
+                    fontSize: 18,
+                    color: AppColors.activeBorder,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+
+        return Scaffold(
+          appBar: CustomAppBar(text: ''),
+          backgroundColor: AppColors.haiti,
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: SafeArea(
+              child: isTablet
+                  ? Center(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 400),
+                        child: content,
+                      ),
+                    )
+                  : content,
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
