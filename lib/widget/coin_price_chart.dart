@@ -25,11 +25,12 @@ class CoinPriceChart extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(height: 16),
         _PeriodSelector(
           selectedPeriod: selectedPeriod,
           onPeriodChanged: onPeriodChanged,
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 8),
         _buildChart(context),
       ],
     );

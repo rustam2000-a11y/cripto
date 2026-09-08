@@ -28,7 +28,7 @@ class BottomSheetWrapper extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: AppColors.sheetBackground,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.only(topRight: Radius.circular(20),topLeft: Radius.circular(20)),
       ),
       child: Column(
         children: [

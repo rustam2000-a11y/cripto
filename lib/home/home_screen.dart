@@ -1,3 +1,4 @@
+import 'package:crypto_assistant/core/ui/device_layout.dart';
 import 'package:crypto_assistant/home/bloc/home_bloc.dart';
 import 'package:crypto_assistant/home/bloc/home_event.dart';
 import 'package:crypto_assistant/home/bloc/home_state.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../coin_card/coin_screen.dart';
+import '../core/ui/ui_provider.dart';
 import '../generated/l10n.dart';
 import '../injection.dart';
 import '../widget/coin_card.dart';
@@ -38,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isTablet = context.watch<UiProvider>().deviceLayout.isTabletMode;
     return BlocBuilder<HomeBloc, HomeState>(
       bloc: _bloc,
       builder: (context, state) {
@@ -60,8 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 child: Image.asset(
                   AppImages.languages,
-                  width: 24,
-                  height: 24,
+                  width: isTablet?27:24,
+                  height: isTablet?27:24,
                   color: AppColors.whiteColor,
                 ),
               ),
