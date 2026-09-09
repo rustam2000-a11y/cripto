@@ -1,6 +1,10 @@
+import 'package:crypto_assistant/core/ui/device_layout.dart';
 import 'package:crypto_assistant/presentation/app_colors.dart';
 import 'package:crypto_assistant/widget/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../core/ui/ui_provider.dart';
 
 class AssistantCardInformation extends StatelessWidget {
   const AssistantCardInformation({
@@ -20,6 +24,7 @@ class AssistantCardInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isTablet = context.watch<UiProvider>().deviceLayout.isTabletMode;
     return Material(
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(15),
@@ -33,13 +38,8 @@ class AssistantCardInformation extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           onTap: onTap,
           child: Container(
-            constraints: const BoxConstraints(
-              maxHeight: 220,
-            ),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 15,
-            ),
+            constraints: const BoxConstraints(maxHeight: 220),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -49,20 +49,17 @@ class AssistantCardInformation extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   padding: const EdgeInsets.all(10),
-                  child: Image.asset(
-                    icon,
-                    width: 30,
-                    height: 30,
-                  ),
+                  child: Image.asset(icon, width: 30, height: 30),
                 ),
                 const SizedBox(height: 20),
                 CustomNewText(
                   text: text,
-                  fontSize: 15,
+                  fontSize: isTablet ? 20 : 15,
                   textAlign: TextAlign.start,
                 ),
                 const Spacer(),
                 CustomNewText(
+                  fontSize: isTablet ? 18 : 14,
                   text: description,
                   color: AppColors.blueBell,
                   textAlign: TextAlign.start,

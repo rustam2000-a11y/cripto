@@ -1,6 +1,10 @@
+import 'package:crypto_assistant/core/ui/device_layout.dart';
 import 'package:crypto_assistant/presentation/app_colors.dart';
 import 'package:crypto_assistant/widget/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../core/ui/ui_provider.dart';
 
 class CoinPriceChange extends StatelessWidget {
   const CoinPriceChange({
@@ -14,6 +18,7 @@ class CoinPriceChange extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isTablet = context.watch<UiProvider>().deviceLayout.isTabletMode;
     final isPositive = (priceChangePercentage24h ?? 0) >= 0;
     final changeColor = isPositive ? Colors.green : Colors.red;
     final changeBgColor =
@@ -27,7 +32,7 @@ class CoinPriceChange extends StatelessWidget {
       children: [
         CustomNewText(
           text: '\$${currentPrice.toStringAsFixed(2)}',
-          fontSize: 16,
+          fontSize: isTablet? 22:16,
           fontWeight: FontWeight.w500,
           color: AppColors.titanWhite,
         ),
@@ -41,7 +46,7 @@ class CoinPriceChange extends StatelessWidget {
           ),
           child: CustomNewText(
             text: changeText,
-            fontSize: 11,
+            fontSize: isTablet? 15:11,
             fontWeight: FontWeight.w500,
             color: changeColor,
           ),

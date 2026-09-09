@@ -1,6 +1,9 @@
+import 'package:crypto_assistant/core/ui/device_layout.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../core/ui/ui_provider.dart';
 import '../generated/l10n.dart';
 import '../home/data/models/chart_period.dart';
 import '../home/data/models/price_point.dart';
@@ -162,6 +165,7 @@ class _PeriodChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isTablet = context.watch<UiProvider>().deviceLayout.isTabletMode;
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
@@ -178,7 +182,7 @@ class _PeriodChip extends StatelessWidget {
           label,
           style: TextStyle(
             color: isSelected ? AppColors.whiteColor : AppColors.textSecondary,
-            fontSize: 13,
+            fontSize: isTablet?17:13,
             fontWeight: FontWeight.w500,
           ),
         ),

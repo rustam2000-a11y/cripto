@@ -1,7 +1,10 @@
 import 'package:bloc_after_effect/bloc_after_effect.dart';
+import 'package:crypto_assistant/core/ui/device_layout.dart';
 import 'package:crypto_assistant/home/home_widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../core/ui/ui_provider.dart';
 import '../generated/l10n.dart';
 import '../injection.dart';
 import '../presentation/app_colors.dart';
@@ -45,6 +48,7 @@ class _CoinScreenState extends State<CoinScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isTablet = context.watch<UiProvider>().deviceLayout.isTabletMode;
     return BlocEffectBuilder<CoinBloc, CoinState, CoinEffect>(
       bloc: _bloc,
       effectListener: (context, effect) {
@@ -93,12 +97,12 @@ class _CoinScreenState extends State<CoinScreen> {
                                       CoinAvatar(imageUrl: coin.image),
                                       const SizedBox(width: 12),
                                       Expanded(
-                                        child: TitleTextColumn(
+                                        child: TitleTextColumn(//
                                           title: coin.name,
                                           text:
                                               '${coin.symbol.toUpperCase()} - #${coin.marketCapRank}',
-                                          fonSizeFirst: 18,
-                                          fonSizeLast: 14,
+                                          fonSizeFirst: isTablet?22:18,
+                                          fonSizeLast: isTablet?22:14,
                                         ),
                                       ),
                                     ],

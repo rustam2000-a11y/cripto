@@ -1,6 +1,10 @@
+import 'package:crypto_assistant/core/ui/device_layout.dart';
 import 'package:crypto_assistant/presentation/app_colors.dart';
 import 'package:crypto_assistant/widget/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../core/ui/ui_provider.dart';
 
 class CoinStatCard extends StatelessWidget {
   const CoinStatCard({
@@ -14,6 +18,7 @@ class CoinStatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isTablet = context.watch<UiProvider>().deviceLayout.isTabletMode;
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -26,13 +31,13 @@ class CoinStatCard extends StatelessWidget {
         children: [
           CustomNewText(
             text: title,
-            fontSize: 12,
+            fontSize: isTablet?16:12,
             fontWeight: FontWeight.w400,
             color: AppColors.textSecondary,
           ),
           CustomNewText(
             text: value,
-            fontSize: 15,
+            fontSize: isTablet?20:15,
             fontWeight: FontWeight.w500,
             color: AppColors.whiteColor,
           ),

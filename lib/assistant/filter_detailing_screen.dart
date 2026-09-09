@@ -1,8 +1,10 @@
+import 'package:crypto_assistant/core/ui/device_layout.dart';
 import 'package:crypto_assistant/widget/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../coin_card/coin_screen.dart';
+import '../core/ui/ui_provider.dart';
 import '../generated/l10n.dart';
 import '../home/home_widget/custom_app_bar.dart';
 import '../injection.dart';
@@ -44,6 +46,7 @@ class _FilterDetailingScreenState extends State<FilterDetailingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isTablet = context.watch<UiProvider>().deviceLayout.isTabletMode;
     return Scaffold(
       backgroundColor: AppColors.haiti,
       appBar: CustomAppBar(text: S.of(context).detailing),
@@ -59,7 +62,7 @@ class _FilterDetailingScreenState extends State<FilterDetailingScreen> {
                   border: Border.all(color: AppColors.blueBell),
 
                 ),
-                child: CustomNewText(text: widget.description)),
+                child: CustomNewText(text: widget.description,fontSize: isTablet?20:14,)),
             const SizedBox(height: 8),
             Expanded(
               child: BlocBuilder<FilterDetailingBloc, FilterDetailingState>(

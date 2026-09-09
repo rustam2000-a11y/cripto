@@ -1,6 +1,9 @@
+import 'package:crypto_assistant/core/ui/device_layout.dart';
 import 'package:crypto_assistant/widget/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../core/ui/ui_provider.dart';
 import '../../presentation/app_colors.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -19,11 +22,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isTablet = context.watch<UiProvider>().deviceLayout.isTabletMode;
     return AppBar(
       title: CustomNewText(
         text: text,
         color: AppColors.whiteColor,
-        fontSize: 16,
+        fontSize: isTablet?22:16,
         fontWeight: FontWeight.w600,
       ),
       backgroundColor: colors,
