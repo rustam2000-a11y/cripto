@@ -169,7 +169,18 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: content,
                       ),
                     )
-                  : content,
+                  : LayoutBuilder(
+                      builder: (context, constraints) {
+                        return SingleChildScrollView(
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minHeight: constraints.maxHeight,
+                            ),
+                            child: IntrinsicHeight(child: content),
+                          ),
+                        );
+                      },
+                    ),
             ),
           ),
         );
