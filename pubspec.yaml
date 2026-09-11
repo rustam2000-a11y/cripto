@@ -51,6 +51,8 @@ dependencies:
   google_sign_in: ^7.2.0
   sign_in_with_apple: ^7.0.1
   shared_preferences: ^2.5.5
+  flutter_dotenv: ^5.2.1
+  google_generative_ai: ^0.4.7
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +80,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - .env
 
   # To add assets to your application, add an assets section, like this:
   # assets:

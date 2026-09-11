@@ -3,6 +3,7 @@ class AppImages {
 
   static const barChart = 'assets/images/bar_chart.png';
   static const dataAnalytics = 'assets/images/data_report.png';
+  static const aiInsights = 'assets/images/data_analytics.png';
   static const home = 'assets/images/home.png';
   static const siren = 'assets/images/siren.png';
   static const volatility = 'assets/images/volatility.png';
